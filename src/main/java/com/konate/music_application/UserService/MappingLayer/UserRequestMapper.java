@@ -17,6 +17,10 @@ public interface UserRequestMapper {
                     @Mapping(source = "requestModel.email", target = "email"),
                     @Mapping(source = "requestModel.password", target = "password"),
                     @Mapping(source = "requestModel.fullname", target = "fullname"),
+                    @Mapping(source = "requestModel.age", target = "age"),
+                    @Mapping(source = "requestModel.country", target = "country"),
+//                    @Mapping(source = "user.region", target = "region"),
+
                     @Mapping(expression = "java(userIdentifier)", target = "userIdentifier")
             }
     )

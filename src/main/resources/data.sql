@@ -97,17 +97,17 @@ VALUES
 
 
 
-INSERT INTO users (user_id, username, password, email, fullname)
-VALUES ('USR-001', 'nroos', 'hashed_pw_001', 'Nathan.Roos@example.com', 'Nathan Roos'),
-       ('USR-002', 'jroos', 'hashed_pw_002', 'Jeremy.Roos@example.com', 'Jeremy Roos'),
-       ('USR-003', 'iwallace', 'hashed_pw_003', 'Isaac.Wallace@example.com', 'Isaac Wallace'),
-       ('USR-004', 'nkonate', 'hashed_pw_004', 'Naima.Konate@example.com', 'Naima Konate'),
-       ('USR-005', 'Bwood', 'hashed_pw_005', 'Brendon.Wood@example.com', 'Brendon Wood'),
-       ('USR-006', 'cgerald', 'hashed_pw_006', 'Christine.Gerald@example.com', 'Christine Gerald'),
-       ('USR-007', 'mkonate', 'hashed_pw_007', 'Malick.Konate@example.com', 'Malick Konate'),
-       ('USR-008', 'hnguyen', 'hashed_pw_008', 'Hannah.Nguyen@example.com', 'Hannah Nguyen'),
-       ('USR-009', 'jmiller', 'hashed_pw_009', 'Julia.Miller@example.com', 'Julia Miller'),
-       ('USR-010', 'ebrown', 'hashed_pw_010', 'Ella.Brown@example.com', 'Ella Brown');
+INSERT INTO users (user_id, username, password, email, fullname, country, age)
+VALUES ('USR-001', 'nroos', 'hashed_pw_001', 'Nathan.Roos@example.com', 'Nathan Roos', 'Canada',  19),
+       ('USR-002', 'jroos', 'hashed_pw_002', 'Jeremy.Roos@example.com', 'Jeremy Roos', 'Canada',  19),
+       ('USR-003', 'iwallace', 'hashed_pw_003', 'Isaac.Wallace@example.com', 'Isaac Wallace', 'Canada', 21),
+       ('USR-004', 'nkonate', 'hashed_pw_004', 'Naima.Konate@example.com', 'Naima Konate', 'Canada',  16),
+       ('USR-005', 'Bwood', 'hashed_pw_005', 'Brendon.Wood@example.com', 'Brendon Wood', 'USA', 40),
+       ('USR-006', 'cgerald', 'hashed_pw_006', 'Christine.Gerald@example.com', 'Christine Gerald', 'United Kingdom', 35),
+       ('USR-007', 'mkonate', 'hashed_pw_007', 'Malick.Konate@example.com', 'Malick Konate', 'Canada', 22),
+       ('USR-008', 'hnguyen', 'hashed_pw_008', 'Hannah.Nguyen@example.com', 'Hannah Nguyen', 'USA',  25),
+       ('USR-009', 'jmiller', 'hashed_pw_009', 'Julia.Miller@example.com', 'Julia Miller', 'USA', 49),
+       ('USR-010', 'ebrown', 'hashed_pw_010', 'Ella.Brown@example.com', 'Ella Brown', 'USA', 17);
 
 
 INSERT INTO documentaries (documentary_id, artist_id, title, release_date, description, duration, language,

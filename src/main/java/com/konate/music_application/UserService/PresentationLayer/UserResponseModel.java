@@ -13,4 +13,7 @@ public class UserResponseModel extends RepresentationModel<UserResponseModel> {
     String username;
     String email;
     String fullname;
+    String age;
+    String country;
+//    String region;
 }

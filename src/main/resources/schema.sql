@@ -63,7 +63,10 @@ CREATE TABLE users
     username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email    VARCHAR(255) NOT NULL UNIQUE,
-    fullname     VARCHAR(50)  NOT NULL
+    fullname VARCHAR(50)  NOT NULL,
+    country  VARCHAR(80)  NOT NULL,
+    age      INT          NOT NULL
+
 );
 
 
@@ -174,8 +177,8 @@ CREATE TABLE fan_preferences
 drop Table if exists playlists;
 CREATE TABLE playlists
 (
-    id   INT AUTO_INCREMENT PRIMARY KEY,
-    playlist_id VARCHAR(255) NOT NULL UNIQUE,
+    id            INT AUTO_INCREMENT PRIMARY KEY,
+    playlist_id   VARCHAR(255) NOT NULL UNIQUE,
     fan_id        VARCHAR(255) NOT NULL,
     playlist_name VARCHAR(100) NOT NULL,
     description   VARCHAR(500),

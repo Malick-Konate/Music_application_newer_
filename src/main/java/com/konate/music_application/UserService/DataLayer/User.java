@@ -28,6 +28,15 @@ public class User {
     @Column(name = "fullname", nullable = false)
     private String fullname;
 
+    @Column(name = "country", nullable = false)
+    private String country;
+
+    @Column(name = "age", nullable = false)
+    private int age;
+
+//    @Column(name = "region", nullable = false)
+//    private String region;
+
 //    public User() {
 //        // Default constructor
 //    }

@@ -1,83 +1,69 @@
-
-@startuml C4_Container_Diagram_Adoption_System
+@startuml C4_Music_System_v2
 !includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 !define PERSON_BG_COLOR #08427b
-!define PERSON_FONT_COLOR #ffffff
-
 !define CONTAINER_BG_COLOR #1168bd
-!define CONTAINER_FONT_COLOR #ffffff
-
 !define CONTAINER_DB_BG_COLOR #518fca
-!define CONTAINER_DB_FONT_COLOR #ffffff
 
-!define SYSTEM_BG_COLOR #ffffff
-
-' Define custom tags for styling relationships
-AddRelTag("sync", $lineColor = "#0000FF", $textColor = "#0000FF", $lineStyle = SolidLine())
-AddRelTag("async", $lineColor = "#FF0000", $textColor = "#FF0000", $lineStyle = DashedLine())
+' Custom tags for visual clarity
+AddRelTag("sync", $lineColor = "#0000FF", $textColor = "#0000FF")
 AddRelTag("aggregator", $lineColor = "#cc0099", $textColor = "#cc0099", $lineStyle = DashedLine())
 
-' Actors
-Person(user, "Prospective Parent / Agency User", "Accesses the system via the frontend application or API tools.")
+Person(user, "User / Advertiser", "Listeners streaming music/podcasts or Artists/Brands managing Ad Campaigns.")
 
-' System Boundary
-System_Boundary(adoptionSystem, "Adoption Microservices System") {
+System_Boundary(musicSystem, "Music Application Context") {
 
-    ' === Frontend ===
-    Container(webApp, "Web Server", "Node.js / Nginx", "Serves the static content for the Single Page Application.")
-    Container(singlePageApplication, "Single Page Application (SPA)", "React", "Provides user interface for interacting with the adoption system. Runs in the user's browser.", )
+    ' --- Frontend Layer ---
+    Container(spa, "Single Page Application", "React", "Interface for listening and managing orders/ads.")
+    Container(apiGateway, "API Gateway", "Spring Cloud Gateway", "Unified entry point; handles Auth & Routing.")
 
-    ' === Backend Services ===
-    Container(apiGateway, "API Gateway", "Spring Boot", "Exposes a unified API, handles routing, authentication, and HATEOAS for all external requests.", )
+    ' --- Aggregator / Aggregate Root Services ---
+    Container(orderService, "Order Service", "Spring Boot", "Orchestrates purchases: Albums, Podcast Subs, Artist Donations.")
+    Container(adService, "Ad Service", "Spring Boot", "Manages AdCampaigns, Creatives, and Targeting logic.")
 
-    ' Aggregator Service (Your focus for MS2)
-    Container(adoptionCaseService, "Adoption Case Service (Aggregator)", "Spring Boot", "Manages the overall adoption case lifecycle, orchestrating calls to other services.", )
+    ' --- Core Domain Services (LLMS) ---
+    Container(userService, "User Service", "Spring Boot", "User profiles, preferences, and identity.")
+    Container(artistService, "Artist Service", "Spring Boot", "Artist bios, genres, and management.")
+    Container(catalogService, "Catalog Service", "Spring Boot", "Music library: Albums and Songs.")
+    Container(podcastService, "Podcast Service", "Spring Boot", "Podcast series and Episode management.")
 
-    ' Low-Level Microservices (LLMS)
-    Container(childService, "Child Management Service", "Spring Boot", "Handles child profile data, eligibility, and history.", )
-    Container(parentService, "Parent Screening Service", "Spring Boot", "Manages adoptive parent profiles, screening status, and preferences.")
-    Container(employeeService, "Employee Administration Service", "Spring Boot", "Manages employee information, roles, and assignments.")
-'    Container(caseWorkflowService, "Case Workflow & Legal Service", "Spring Boot", "Handles workflow state transitions, legal document tracking, and court interactions.")
-
-    ' === Databases ===
-    ContainerDb(adoptionDb, "Adoption Case DB", "MongoDB", "Stores the state and details of each adoption case aggregate.")
-    ContainerDb(childDb, "Child DB", "MySQL", "Stores detailed child profiles and related information.")
-    ContainerDb(parentDb, "Parent DB", "MySQL", "Stores detailed adoptive parent profiles and screening results.")
-    ContainerDb(employeeDb, "Employee DB", "MySQL", "Stores employee records and role details.")
-'    ContainerDb(caseWorkflowDb, "Workflow & Legal DB", "MySQL", "Stores workflow status, legal document metadata, and court records.")
+    ' --- Data Layer ---
+    ContainerDb(orderDb, "Order DB", "MongoDB", "Transactions & Order History.")
+    ContainerDb(adDb, "Ad DB", "PostgreSQL", "Campaigns, Targeting Rules, & Creatives.")
+    ContainerDb(userDb, "User DB", "PostgreSQL", "User data.")
+    ContainerDb(artistDb, "Artist DB", "PostgreSQL", "Artist metadata.")
+    ContainerDb(catalogDb, "Catalog DB", "PostgreSQL", "Music metadata.")
+    ContainerDb(podcastDb, "Podcast DB", "PostgreSQL", "Podcast metadata.")
 }
 
-' === Relationships ===
+' --- Relationships ---
 
-' User -> Frontend
-Rel(user, webApp, "Accesses", "HTTPS")
-Rel(webApp, singlePageApplication, "Serves", "HTTPS")
-Rel(user, singlePageApplication, "Uses", "HTTPS") ' User interacts directly with the SPA in their browser
+' Frontend Flow
+Rel(user, spa, "Uses", "HTTPS")
+Rel(spa, apiGateway, "API Requests", "JSON/REST", $tags="sync")
 
-' SPA -> API Gateway
-Rel(singlePageApplication, apiGateway, "Makes API calls to", "JSON/HTTPS, REST", $tags = "sync")
+' Gateway Routing
+Rel(apiGateway, orderService, "Purchases", "REST")
+Rel(apiGateway, adService, "Ad Management/Serving", "REST")
+Rel(apiGateway, catalogService, "Streaming/Browsing", "REST")
 
-' API Gateway -> Aggregator
-Rel(apiGateway, adoptionCaseService, "Routes adoption case requests to", "JSON/HTTPS, REST", $tags = "sync")
+' Order Service Orchestration (Aggregator 1)
+Rel(orderService, userService, "Verify User", "REST", $tags="aggregator")
+Rel(orderService, catalogService, "Verify Album", "REST", $tags="aggregator")
+Rel(orderService, podcastService, "Verify Podcast", "REST", $tags="aggregator")
+Rel(orderService, artistService, "Verify Artist", "REST", $tags="aggregator")
 
-' API Gateway -> LLMS (For direct access if needed, e.g., admin functions or specific non-aggregated data)
-Rel(apiGateway, childService, "Routes child requests to", "JSON/HTTPS, REST", $tags = "sync")
-Rel(apiGateway, parentService, "Routes parent requests to", "JSON/HTTPS, REST", $tags = "sync")
-Rel(apiGateway, employeeService, "Routes employee requests to", "JSON/HTTPS, REST", $tags = "sync")
-'Rel(apiGateway, caseWorkflowService, "Routes workflow/legal requests to", "JSON/HTTPS, REST", $tags = "sync")
+' Ad Service Orchestration (Aggregator 2)
+Rel(adService, userService, "Targeting Lookup", "REST", $tags="aggregator")
+Rel(adService, artistService, "Sponsor Lookup", "REST", $tags="aggregator")
+Rel(adService, podcastService, "Placement Lookup", "REST", $tags="aggregator")
 
-' Aggregator -> LLMS (Core orchestration)
-Rel(adoptionCaseService, childService, "Fetches/Updates child data using", "JSON/HTTPS, REST", $tags = "aggregator")
-Rel(adoptionCaseService, parentService, "Fetches/Updates parent data using", "JSON/HTTPS, REST", $tags = "aggregator")
-Rel(adoptionCaseService, employeeService, "Fetches/Updates employee data using", "JSON/HTTPS, REST", $tags = "aggregator")
-'Rel(adoptionCaseService, caseWorkflowService, "Fetches/Updates workflow/legal data using", "JSON/HTTPS, REST", $tags = "aggregator")
-
-' Services -> Databases
-Rel_R(adoptionCaseService, adoptionDb, "Reads from / Writes to", "MongoDB Driver")
-Rel_R(childService, childDb, "Reads from / Writes to", "JDBC")
-Rel_R(parentService, parentDb, "Reads from / Writes to", "JDBC")
-Rel_R(employeeService, employeeDb, "Reads from / Writes to", "JDBC")
-'Rel_R(caseWorkflowService, caseWorkflowDb, "Reads from / Writes to", "JDBC")
+' Database Persistence
+Rel_D(orderService, orderDb, "Reads/Writes")
+Rel_D(adService, adDb, "Reads/Writes")
+Rel_D(userService, userDb, "Reads/Writes")
+Rel_D(artistService, artistDb, "Reads/Writes")
+Rel_D(catalogService, catalogDb, "Reads/Writes")
+Rel_D(podcastService, podcastDb, "Reads/Writes")
 
 @enduml

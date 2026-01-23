@@ -1,0 +1,281 @@
+@startuml
+hide circle
+top to bottom direction
+scale 0.3
+!define ENTITY(entityName) class entityName << Entity >>
+!define ENUM(enumName) class enumName << Enum >>
+!define AGGREGATE_ROOT(aggregateRootName) class aggregateRootName << Aggregate Root >>
+!define AGGREGATE_ROOT_ENTITY(aggregateRootEntityName) class aggregateRootEntityName << Aggregate Root >> << Entity >>
+!define VALUE_OBJECT(valueObjectName) class valueObjectName << Value Object >>
+!pragma useVerticalIf on
+skinparam dpi 350
+skinparam packageStyle rectangle
+skinparam rectangle {
+    BackgroundColor #f7f4eb
+    BorderColor Black
+}
+
+' -------------------------------------------
+' STYLING & CONFIGURATION
+' -------------------------------------------
+'skinparam class {
+'    BackgroundColor<<Entity>> PaleGreen
+'    BackgroundColor<<ValueObject>> LightSkyBlue
+'    BackgroundColor<<Service>> Wheat
+'    BackgroundColor<<Enum>> LightCoral
+'    BackgroundColor<<Aggregator>> Thistle
+'}
+rectangle "Music application context"  as BoundedContextMusicManagement #line.dashed{
+'left to right direction
+
+' -------------------------------------------
+' 1. USER SERVICE (Consolidated Identity + Fan)
+' -------------------------------------------
+package "user service Subdomain" as UserService  <<Rectangle>> #LightGreen{
+    ENTITY( User )#lightpink{
+        + userId: UUID
+        + username: String
+        + email: String
+        + passwordHash: String
+    }
+
+'    class UserProfile <<Entity>> {
+'        + profileId: UUID
+'        + userId: UUID
+'        + preferences: UserPreferences
+'    }
+
+    VALUE_OBJECT(UserIdentifier) #Bisque{
+        userId: UUID
+    }
+}
+'User "1" *-- "1" UserProfile
+User --> UserIdentifier
+
+' -------------------------------------------
+' 2. ARTIST SERVICE
+' -------------------------------------------
+package "Artist management Sub-Domain" as ArtistService <<Rectangle>> #Orange{
+    ENTITY(Artist) #lightpink{
+        + artistId: UUID
+        + name: String
+        + bio: String
+        + genres: List<Genre>
+    }
+
+    VALUE_OBJECT(ArtistIdentifier) #Bisque {
+        - id: UUID
+    }
+}
+Artist --> ArtistIdentifier
+
+' -------------------------------------------
+' 3. CATALOG SERVICE (Music)
+' -------------------------------------------
+package "Catalogue Sub-Domain" as CatalogService <<Rectangle>> #LightYellow{
+    ENTITY(Album) #lightpink {
+        + albumId: UUID
+        + artistId: ArtistId
+        + title: String
+        + releaseDate: Date
+        + type: AlbumType
+    }
+
+    VALUE_OBJECT(Song) #Bisque {
+        + songId: UUID
+        + albumId: UUID
+        + title: String
+        + duration: Duration
+    }
+    VALUE_OBJECT(AlbumIdentifier) #Bisque{
+        + albumId: UUID
+    }
+
+    ENUM( AlbumType) {
+        LP
+        EP
+        SINGLE
+    }
+}
+Album "1" *-- "*" Song
+Album --> AlbumType
+' Cross-context reference
+Album --> ArtistIdentifier
+Album --> AlbumIdentifier
+
+' -------------------------------------------
+' 4. PODCAST SERVICE (New)
+' -------------------------------------------
+package "Podcast Sub-Domain" as PodcastService <<Rectangle>> #Violet {
+    ENTITY(Podcast) #lightpink {
+        + podcastId: PodcastId
+        + hostName: String
+        + title: String
+        + description: String
+        + pricingModel: PodcastPricing
+    }
+    ENUM(PodcastPricing) {
+        FREE
+        SUBSCRIPTION
+        PER_EPISODE
+    }
+
+
+    ENUM(EpisodeStatus){
+        DRAFT
+        PUBLISHED
+        ARCHIVED
+    }
+
+    ENTITY(Episode) #lightpink {
+        + episodeId: EpisodeId
+'        + podcastId: UUID
+        + title: String
+        + duration: Duration
+        + publishDate: Date
+        +status: EpisodeStatus
+    }
+    VALUE_OBJECT(PodcastIdentifier) #Bisque{
+        - id: UUID
+    }
+    VALUE_OBJECT(EpisodeIdentifier) #Bisque {
+        - id: UUID
+    }
+
+}
+'Podcast "1" *-- "*" Episode
+Podcast --> PodcastIdentifier
+'Podcast --> EpisodeIdentifier
+Podcast --> PodcastPricing
+Episode --> EpisodeIdentifier
+Episode --> EpisodeStatus
+Episode --> PodcastIdentifier
+
+' -------------------------------------------
+' 5. ORDER SERVICE (The Aggregator)
+' -------------------------------------------
+package "Order Sub-Domain" as OrderService <<Rectangle>> #Salmon {
+
+    AGGREGATE_ROOT_ENTITY(Order) #lightpink {
+        + orderId: UUID
+        + userId: UUID
+        + totalAmount: Money
+        + status: OrderStatus
+        + createdAt: DateTime
+        + userId: UserID
+    }
+
+    VALUE_OBJECT(OrderItem) #Bisque {
+'        + itemId: UUID
+        + itemType: ProductType
+        + price: Money
+        + quantity: Integer
+    }
+VALUE_OBJECT(OrderId) #Bisque {
++id: UUID
+}
+    ENUM (OrderStatus) {
+        PENDING
+        COMPLETED
+        CANCELLED
+    }
+
+    ENUM( ProductType) <<Enum>> {
+        ALBUM_PURCHASE
+        PODCAST_SUBSCRIPTION
+        ARTIST_DONATION
+    }
+}
+' -------------------------------------------
+    ' 6. AD SERVICE (New Aggregate)
+    ' -------------------------------------------
+    package "Ad Sub-Domain" as AdService <<Rectangle>> #LightBlue {
+
+        AGGREGATE_ROOT_ENTITY(AdCampaign) #lightpink {
+            + campaignId: UUID
+            + name: String
+            + advertiserId: UUID
+            + budget: Money
+            + remainingSpend: Money
+            + status: CampaignStatus
+            + userId: UserIdentifier
+            + artistId: ArtistIdentifier
+            + podcastId: PodcastIdentifier
+
+
+        }
+
+        VALUE_OBJECT(AdCreative) #Bisque {
+'            + creativeId: UUID
+            + mediaUrl: String
+            + type: CreativeType
+        }
+
+        VALUE_OBJECT(TargetingRules) #Bisque {
+            + targetGenres: List<Genre>
+            + targetRegions: List<Region>
+            + minAge: Integer
+        }
+ENUM(Genre) {
+        bluegrass
+        honky-tonk
+        outlaw
+        country pop
+        alternative country
+        Canadian country
+        Countrypolitan
+    }
+
+    ENUM(Region) {
+        GLOBAL
+        NORTH_AMERICA
+        EUROPE
+        ASIA
+        LATAM
+    }
+
+        ENUM(CampaignStatus) {
+            DRAFT
+            ACTIVE
+            PAUSED
+            EXHAUSTED
+        }
+
+        ENUM(CreativeType) {
+            AUDIO_CLIP
+            BANNER_IMAGE
+            VIDEO_SPOT
+        }
+    }
+    AdCampaign --> AdCreative
+    AdCampaign --> TargetingRules
+    AdCampaign --> CreativeType
+    AdCampaign --> CampaignStatus
+    TargetingRules --> Genre
+    TargetingRules --> Region
+
+}
+AdCampaign --> UserIdentifier
+AdCampaign --> ArtistIdentifier
+AdCampaign --> PodcastIdentifier
+
+Order "1" *-- "*" OrderItem
+Order --> OrderStatus
+OrderItem --> ProductType
+Order --> OrderId
+' -------------------------------------------
+' SYSTEM RELATIONSHIPS
+' -------------------------------------------
+Order --> AlbumIdentifier
+Order --> PodcastIdentifier
+Order --> UserIdentifier
+Order --> ArtistIdentifier
+' The Order Service depends on the others to validate items
+'OrderService ..> UserService : "Verifies User"
+'OrderService ..> CatalogService : "Verifies Album Price"
+'OrderService ..> PodcastService : "Verifies Sub Details"
+'OrderService ..> ArtistService : "Direct Artist Support"
+
+
+
+@enduml

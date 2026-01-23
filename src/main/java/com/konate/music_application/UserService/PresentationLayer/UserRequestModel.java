@@ -11,4 +11,7 @@ public class UserRequestModel {
     String email;
     String password;
     String fullname;
+    String age;
+    String country;
+//    String region;
 }

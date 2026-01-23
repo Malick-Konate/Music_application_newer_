@@ -22,7 +22,12 @@ public interface UserResponseMapper {
                     @Mapping(source = "userIdentifier.userId", target = "userId"),
                     @Mapping(source = "user.username", target = "username"),
                     @Mapping(source = "user.email", target = "email"),
-                    @Mapping(source = "user.fullname", target = "fullname")
+                    @Mapping(source = "user.fullname", target = "fullname"),
+                    @Mapping(source = "user.country", target = "country"),
+                    @Mapping(source = "user.age", target = "age"),
+//                    @Mapping(source = "user.region", target = "region")
+
+
             }
     )
     UserResponseModel toUserResponseModel(User user);
