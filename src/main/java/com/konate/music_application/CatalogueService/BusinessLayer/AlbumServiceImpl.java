@@ -1,20 +1,20 @@
-package com.konate.music_application.CatalogService.BusinessLayer;
+package com.konate.music_application.CatalogueService.BusinessLayer;
 
 import com.konate.music_application.ArtistService.BusinessLayer.ArtistService;
 //import com.konate.music_application.ArtistService.Exceptions.NotFoundException;
 import com.konate.music_application.ArtistService.MappingLayer.ArtistRequestMapper;
 import com.konate.music_application.ArtistService.Presentation.ArtistResponseModel;
 import com.konate.music_application.ArtistService.dataLayer.ArtistIdentifier;
-import com.konate.music_application.CatalogService.DataLayer.Album;
-import com.konate.music_application.CatalogService.DataLayer.AlbumIdentifier;
-import com.konate.music_application.CatalogService.DataLayer.AlbumRepository;
-import com.konate.music_application.CatalogService.DataLayer.Song;
-import com.konate.music_application.CatalogService.Exceptions.AlbumNotFoundException;
-import com.konate.music_application.CatalogService.MappingLayer.AlbumRequestMapper;
-import com.konate.music_application.CatalogService.MappingLayer.AlbumResponseMapper;
-import com.konate.music_application.CatalogService.PresentationLayer.AlbumController;
-import com.konate.music_application.CatalogService.PresentationLayer.AlbumRequestModel;
-import com.konate.music_application.CatalogService.PresentationLayer.AlbumResponseModel;
+import com.konate.music_application.CatalogueService.DataLayer.Album;
+import com.konate.music_application.CatalogueService.DataLayer.AlbumIdentifier;
+import com.konate.music_application.CatalogueService.DataLayer.AlbumRepository;
+import com.konate.music_application.CatalogueService.DataLayer.Song;
+import com.konate.music_application.CatalogueService.Exceptions.AlbumNotFoundException;
+import com.konate.music_application.CatalogueService.MappingLayer.AlbumRequestMapper;
+import com.konate.music_application.CatalogueService.MappingLayer.AlbumResponseMapper;
+import com.konate.music_application.CatalogueService.PresentationLayer.AlbumController;
+import com.konate.music_application.CatalogueService.PresentationLayer.AlbumRequestModel;
+import com.konate.music_application.CatalogueService.PresentationLayer.AlbumResponseModel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

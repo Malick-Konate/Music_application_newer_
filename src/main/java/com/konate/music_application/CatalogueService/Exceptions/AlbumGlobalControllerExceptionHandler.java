@@ -1,4 +1,4 @@
-package com.konate.music_application.CatalogService.Exceptions;
+package com.konate.music_application.CatalogueService.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

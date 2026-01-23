@@ -1,7 +1,7 @@
-package com.konate.music_application.CatalogService.BusinessLayer;
+package com.konate.music_application.CatalogueService.BusinessLayer;
 
-import com.konate.music_application.CatalogService.PresentationLayer.AlbumRequestModel;
-import com.konate.music_application.CatalogService.PresentationLayer.AlbumResponseModel;
+import com.konate.music_application.CatalogueService.PresentationLayer.AlbumRequestModel;
+import com.konate.music_application.CatalogueService.PresentationLayer.AlbumResponseModel;
 
 import java.util.List;
 

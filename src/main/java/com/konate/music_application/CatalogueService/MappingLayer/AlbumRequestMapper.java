@@ -1,9 +1,9 @@
-package com.konate.music_application.CatalogService.MappingLayer;
+package com.konate.music_application.CatalogueService.MappingLayer;
 
 import com.konate.music_application.ArtistService.dataLayer.ArtistIdentifier;
-import com.konate.music_application.CatalogService.DataLayer.Album;
-import com.konate.music_application.CatalogService.DataLayer.AlbumIdentifier;
-import com.konate.music_application.CatalogService.PresentationLayer.AlbumRequestModel;
+import com.konate.music_application.CatalogueService.DataLayer.Album;
+import com.konate.music_application.CatalogueService.DataLayer.AlbumIdentifier;
+import com.konate.music_application.CatalogueService.PresentationLayer.AlbumRequestModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

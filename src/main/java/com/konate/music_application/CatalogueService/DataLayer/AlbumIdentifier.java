@@ -1,4 +1,4 @@
-package com.konate.music_application.CatalogService.DataLayer;
+package com.konate.music_application.CatalogueService.DataLayer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

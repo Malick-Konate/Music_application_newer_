@@ -1,8 +1,8 @@
-package com.konate.music_application.CatalogService.MappingLayer;
+package com.konate.music_application.CatalogueService.MappingLayer;
 
-import com.konate.music_application.CatalogService.DataLayer.Album;
-import com.konate.music_application.CatalogService.PresentationLayer.AlbumController;
-import com.konate.music_application.CatalogService.PresentationLayer.AlbumResponseModel;
+import com.konate.music_application.CatalogueService.DataLayer.Album;
+import com.konate.music_application.CatalogueService.PresentationLayer.AlbumController;
+import com.konate.music_application.CatalogueService.PresentationLayer.AlbumResponseModel;
 import org.mapstruct.*;
 import org.springframework.hateoas.Link;
 

@@ -1,7 +1,7 @@
-package com.konate.music_application.CatalogService.PresentationLayer;
+package com.konate.music_application.CatalogueService.PresentationLayer;
 
-import com.konate.music_application.CatalogService.DataLayer.AlbumType;
-import com.konate.music_application.CatalogService.DataLayer.Song;
+import com.konate.music_application.CatalogueService.DataLayer.AlbumType;
+import com.konate.music_application.CatalogueService.DataLayer.Song;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

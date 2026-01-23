@@ -33,14 +33,14 @@ System_Boundary(musicSystem, "Music Microservices System") {
     ' Low-Level Microservices (LLMS)
     Container(userService, "User Service", "Spring Boot", "Manages user identity, profiles, and login credentials.")
     Container(artistService, "Artist Management Service", "Spring Boot", "Manages artist bios, genres, and identifiers.")
-    Container(catalogService, "Music Catalog Service", "Spring Boot", "Manages albums, songs, release dates, and durations.")
+    Container(catalogueService, "Music Catalogue Service", "Spring Boot", "Manages albums, songs, release dates, and durations.")
     Container(podcastService, "Podcast Service", "Spring Boot", "Manages podcasts, episodes, and pricing models.")
 
     ' === Databases ===
     ContainerDb(orderDb, "Order DB", "MongoDB", "Stores order history, transaction status, and receipts.")
     ContainerDb(userDb, "User DB", "MySQL", "Stores user credentials and profile information.")
     ContainerDb(artistDb, "Artist DB", "MySQL", "Stores artist details and genre classifications.")
-    ContainerDb(catalogDb, "Catalog DB", "MySQL", "Stores metadata for albums and songs.")
+    ContainerDb(catalogueDb, "Catalogue DB", "MySQL", "Stores metadata for albums and songs.")
     ContainerDb(podcastDb, "Podcast DB", "MySQL", "Stores podcast metadata, episode details, and pricing rules.")
 }
 
@@ -57,13 +57,13 @@ Rel(spa, apiGateway, "Makes API calls to", "JSON/HTTPS, REST", $tags = "sync")
 ' API Gateway -> Routing
 Rel(apiGateway, orderService, "Routes purchase requests to", "JSON/HTTPS, REST", $tags = "sync")
 Rel(apiGateway, userService, "Routes login/profile requests to", "JSON/HTTPS, REST", $tags = "sync")
-Rel(apiGateway, catalogService, "Routes music browsing to", "JSON/HTTPS, REST", $tags = "sync")
+Rel(apiGateway, catalogueService, "Routes music browsing to", "JSON/HTTPS, REST", $tags = "sync")
 Rel(apiGateway, podcastService, "Routes podcast browsing to", "JSON/HTTPS, REST", $tags = "sync")
 Rel(apiGateway, artistService, "Routes artist info requests to", "JSON/HTTPS, REST", $tags = "sync")
 
 ' Aggregator Logic (The Order Service orchestrating calls)
 Rel(orderService, userService, "Validates User ID using", "JSON/HTTPS, REST", $tags = "aggregator")
-Rel(orderService, catalogService, "Verifies Album prices using", "JSON/HTTPS, REST", $tags = "aggregator")
+Rel(orderService, catalogueService, "Verifies Album prices using", "JSON/HTTPS, REST", $tags = "aggregator")
 Rel(orderService, podcastService, "Verifies Subscription costs using", "JSON/HTTPS, REST", $tags = "aggregator")
 Rel(orderService, artistService, "Verifies Artist for donations using", "JSON/HTTPS, REST", $tags = "aggregator")
 
@@ -71,7 +71,7 @@ Rel(orderService, artistService, "Verifies Artist for donations using", "JSON/HT
 Rel_R(orderService, orderDb, "Reads/Writes", "MongoDB Driver")
 Rel_R(userService, userDb, "Reads/Writes", "JDBC")
 Rel_R(artistService, artistDb, "Reads/Writes", "JDBC")
-Rel_R(catalogService, catalogDb, "Reads/Writes", "JDBC")
+Rel_R(catalogueService, catalogueDb, "Reads/Writes", "JDBC")
 Rel_R(podcastService, podcastDb, "Reads/Writes", "JDBC")
 
 @enduml
