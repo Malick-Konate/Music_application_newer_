@@ -25,11 +25,11 @@ public class AlbumGlobalControllerExceptionHandler {
         return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
     }
 
-    @ResponseStatus(UNPROCESSABLE_ENTITY)
-    @ExceptionHandler(AlbumDuplicateVinException.class)
-    public AlbumHttpErrorInfo handleDuplicateVinException(WebRequest request, Exception ex) {
-        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
-    }
+//    @ResponseStatus(UNPROCESSABLE_ENTITY)
+//    @ExceptionHandler(AlbumDuplicateVinException.class)
+//    public AlbumHttpErrorInfo handleDuplicateVinException(WebRequest request, Exception ex) {
+//        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
+//    }
 
 
 
