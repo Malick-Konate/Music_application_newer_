@@ -1,0 +1,77 @@
+@startuml C4_Container_Diagram_Music_System
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define PERSON_BG_COLOR #08427b
+!define PERSON_FONT_COLOR #ffffff
+!define CONTAINER_BG_COLOR #1168bd
+!define CONTAINER_FONT_COLOR #ffffff
+!define CONTAINER_DB_BG_COLOR #518fca
+!define CONTAINER_DB_FONT_COLOR #ffffff
+!define SYSTEM_BG_COLOR #ffffff
+
+' Define custom tags for styling relationships
+AddRelTag("sync", $lineColor = "#0000FF", $textColor = "#0000FF", $lineStyle = SolidLine())
+AddRelTag("async", $lineColor = "#FF0000", $textColor = "#FF0000", $lineStyle = DashedLine())
+AddRelTag("aggregator", $lineColor = "#cc0099", $textColor = "#cc0099", $lineStyle = DashedLine())
+
+' Actors
+Person(user, "App User / Listener", "Uses the application to stream music, podcasts, and purchase subscriptions.")
+
+' System Boundary
+System_Boundary(musicSystem, "Music Microservices System") {
+
+    ' === Frontend ===
+    Container(webApp, "Web Server", "Node.js / Nginx", "Serves the static content for the Single Page Application.")
+    Container(spa, "Single Page Application (SPA)", "React/Vue", "Provides user interface for streaming and purchasing music.")
+
+    ' === Backend Services ===
+    Container(apiGateway, "API Gateway", "Spring Boot", "Exposes a unified API, handles routing, authentication, and load balancing.")
+
+    ' Aggregator Service (Focus)
+    Container(orderService, "Order Service (Aggregator)", "Spring Boot", "Aggregates data to process album purchases, subscriptions, and donations.")
+
+    ' Low-Level Microservices (LLMS)
+    Container(userService, "User Service", "Spring Boot", "Manages user identity, profiles, and login credentials.")
+    Container(artistService, "Artist Management Service", "Spring Boot", "Manages artist bios, genres, and identifiers.")
+    Container(catalogService, "Music Catalog Service", "Spring Boot", "Manages albums, songs, release dates, and durations.")
+    Container(podcastService, "Podcast Service", "Spring Boot", "Manages podcasts, episodes, and pricing models.")
+
+    ' === Databases ===
+    ContainerDb(orderDb, "Order DB", "MongoDB", "Stores order history, transaction status, and receipts.")
+    ContainerDb(userDb, "User DB", "MySQL", "Stores user credentials and profile information.")
+    ContainerDb(artistDb, "Artist DB", "MySQL", "Stores artist details and genre classifications.")
+    ContainerDb(catalogDb, "Catalog DB", "MySQL", "Stores metadata for albums and songs.")
+    ContainerDb(podcastDb, "Podcast DB", "MySQL", "Stores podcast metadata, episode details, and pricing rules.")
+}
+
+' === Relationships ===
+
+' User -> Frontend
+Rel(user, webApp, "Accesses", "HTTPS")
+Rel(webApp, spa, "Serves", "HTTPS")
+Rel(user, spa, "Uses", "HTTPS")
+
+' SPA -> API Gateway
+Rel(spa, apiGateway, "Makes API calls to", "JSON/HTTPS, REST", $tags = "sync")
+
+' API Gateway -> Routing
+Rel(apiGateway, orderService, "Routes purchase requests to", "JSON/HTTPS, REST", $tags = "sync")
+Rel(apiGateway, userService, "Routes login/profile requests to", "JSON/HTTPS, REST", $tags = "sync")
+Rel(apiGateway, catalogService, "Routes music browsing to", "JSON/HTTPS, REST", $tags = "sync")
+Rel(apiGateway, podcastService, "Routes podcast browsing to", "JSON/HTTPS, REST", $tags = "sync")
+Rel(apiGateway, artistService, "Routes artist info requests to", "JSON/HTTPS, REST", $tags = "sync")
+
+' Aggregator Logic (The Order Service orchestrating calls)
+Rel(orderService, userService, "Validates User ID using", "JSON/HTTPS, REST", $tags = "aggregator")
+Rel(orderService, catalogService, "Verifies Album prices using", "JSON/HTTPS, REST", $tags = "aggregator")
+Rel(orderService, podcastService, "Verifies Subscription costs using", "JSON/HTTPS, REST", $tags = "aggregator")
+Rel(orderService, artistService, "Verifies Artist for donations using", "JSON/HTTPS, REST", $tags = "aggregator")
+
+' Services -> Databases
+Rel_R(orderService, orderDb, "Reads/Writes", "MongoDB Driver")
+Rel_R(userService, userDb, "Reads/Writes", "JDBC")
+Rel_R(artistService, artistDb, "Reads/Writes", "JDBC")
+Rel_R(catalogService, catalogDb, "Reads/Writes", "JDBC")
+Rel_R(podcastService, podcastDb, "Reads/Writes", "JDBC")
+
+@enduml
