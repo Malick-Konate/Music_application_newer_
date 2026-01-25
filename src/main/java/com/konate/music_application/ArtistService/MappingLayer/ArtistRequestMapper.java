@@ -7,6 +7,7 @@ package com.konate.music_application.ArtistService.MappingLayer;
 
 import com.konate.music_application.ArtistService.Presentation.ArtistRequestModel;
 import com.konate.music_application.ArtistService.dataLayer.Artist;
+import com.konate.music_application.ArtistService.dataLayer.ArtistBio;
 import com.konate.music_application.ArtistService.dataLayer.ArtistIdentifier;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;

@@ -61,13 +61,32 @@ package "Artist management Sub-Domain" as ArtistService <<Rectangle>> #Orange{
         + name: String
         + bio: String
         + genres: List<Genre>
+        + artistBio: List<ArtistBio>
+        + SocialMediaLink: List<SocialMediaLink>
     }
 
     VALUE_OBJECT(ArtistIdentifier) #Bisque {
         - id: UUID
     }
+
+    VALUE_OBJECT(Genre) #Bisque{
+        + genre: String
+    }
+    VALUE_OBJECT(ArtistBio) #Bisque{
+        + text: String
+
+    }
+    VALUE_OBJECT(SocialMediaLink) #Bisque{
+        + platform: String
+        + uri: String
+
+    }
+
 }
 Artist --> ArtistIdentifier
+Artist --> Genre
+Artist --> ArtistBio
+Artist --> SocialMediaLink
 
 ' -------------------------------------------
 ' 3. CATALOG SERVICE (Music)
@@ -180,7 +199,7 @@ VALUE_OBJECT(OrderId) #Bisque {
         CANCELLED
     }
 
-    ENUM( ProductType) <<Enum>> {
+    ENUM( ProductType) {
         ALBUM_PURCHASE
         PODCAST_SUBSCRIPTION
         ARTIST_DONATION
@@ -216,7 +235,7 @@ VALUE_OBJECT(OrderId) #Bisque {
             + targetRegions: List<Region>
             + minAge: Integer
         }
-ENUM(Genre) {
+ENUM(GenreEnum) {
         bluegrass
         honky-tonk
         outlaw
@@ -251,7 +270,7 @@ ENUM(Genre) {
     AdCampaign --> TargetingRules
     AdCampaign --> CreativeType
     AdCampaign --> CampaignStatus
-    TargetingRules --> Genre
+    TargetingRules --> GenreEnum
     TargetingRules --> Region
 
 }
