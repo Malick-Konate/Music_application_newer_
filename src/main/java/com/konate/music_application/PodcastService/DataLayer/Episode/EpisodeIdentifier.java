@@ -3,6 +3,7 @@ package com.konate.music_application.PodcastService.DataLayer.Episode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
+import static java.util.UUID.randomUUID;
 
 @Embeddable
 @Getter
@@ -11,7 +12,7 @@ public class EpisodeIdentifier {
     private String episodeId;
 
     public EpisodeIdentifier(){
-        this.episodeId = "episode - " + java.util.UUID.randomUUID().toString();
+        this.episodeId = "ep_" + randomUUID().toString();
     }
 
     public EpisodeIdentifier(String episodeId){

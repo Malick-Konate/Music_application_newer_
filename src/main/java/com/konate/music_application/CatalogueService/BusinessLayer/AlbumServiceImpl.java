@@ -9,7 +9,7 @@ import com.konate.music_application.CatalogueService.DataLayer.Album;
 import com.konate.music_application.CatalogueService.DataLayer.AlbumIdentifier;
 import com.konate.music_application.CatalogueService.DataLayer.AlbumRepository;
 import com.konate.music_application.CatalogueService.DataLayer.Song;
-import com.konate.music_application.CatalogueService.Exceptions.AlbumNotFoundException;
+import com.konate.music_application.Exceptions.NotFoundException;
 import com.konate.music_application.CatalogueService.MappingLayer.AlbumRequestMapper;
 import com.konate.music_application.CatalogueService.MappingLayer.AlbumResponseMapper;
 import com.konate.music_application.CatalogueService.PresentationLayer.AlbumController;
@@ -45,7 +45,7 @@ public class AlbumServiceImpl implements AlbumService {
 
         Album album = albumRepository.findAllByAlbumIdentifier_AlbumId(albumId);
         if (album == null) {
-            throw new AlbumNotFoundException("Album not found with id: " + albumId);
+            throw new NotFoundException("Album not found with id: " + albumId);
         }
         ArtistResponseModel artist = artistService.getArtistById(album.getArtistIdentifier().getArtistId());
 
@@ -83,7 +83,7 @@ public class AlbumServiceImpl implements AlbumService {
     public AlbumResponseModel createAlbum(AlbumRequestModel album) {
         ArtistResponseModel artist = artistService.getArtistById(album.getArtistId());
         if (artist == null) {
-            throw new AlbumNotFoundException("Artist not found with id: " + album.getArtistId());
+            throw new NotFoundException("Artist not found with id: " + album.getArtistId());
         }
 
         List<Song> songs = album.getSong();
@@ -114,7 +114,7 @@ public class AlbumServiceImpl implements AlbumService {
         ArtistResponseModel artist = artistService.getArtistById(album.getArtistId());
 
         if (existingAlbum == null) {
-            throw new AlbumNotFoundException("Album not found with id: " + albumId);
+            throw new NotFoundException("Album not found with id: " + albumId);
         }
         if (album == null) {
             throw new IllegalArgumentException("Album cannot be null");
@@ -137,7 +137,7 @@ public class AlbumServiceImpl implements AlbumService {
     public void deleteAlbum(String albumId) {
         Album album = albumRepository.findAllByAlbumIdentifier_AlbumId(albumId);
         if (album == null) {
-            throw new AlbumNotFoundException("Album not found with id: " + albumId);
+            throw new NotFoundException("Album not found with id: " + albumId);
         }
         albumRepository.delete(album);
     }
@@ -146,7 +146,7 @@ public class AlbumServiceImpl implements AlbumService {
     public AlbumResponseModel getAlbumByTitle(String title) {
         Album album = albumRepository.findAllByTitle(title);
         if (album == null) {
-            throw new AlbumNotFoundException("Album not found with title: " + title);
+            throw new NotFoundException("Album not found with title: " + title);
         }
         ArtistResponseModel artist = artistService.getArtistById(album.getArtistIdentifier().getArtistId());
 

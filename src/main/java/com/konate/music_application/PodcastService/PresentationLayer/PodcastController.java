@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/podcasts")
+@RequestMapping("/api/v1/podcasts")
 public class PodcastController {
     private final PodcastService podcastService;
     private final EpisodeService episodeService;

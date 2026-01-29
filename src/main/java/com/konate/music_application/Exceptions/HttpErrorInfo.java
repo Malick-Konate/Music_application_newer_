@@ -1,4 +1,4 @@
-package com.konate.music_application.ArtistService.Exceptions;
+package com.konate.music_application.Exceptions;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

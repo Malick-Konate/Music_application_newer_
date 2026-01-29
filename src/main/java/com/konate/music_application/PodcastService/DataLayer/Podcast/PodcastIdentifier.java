@@ -11,7 +11,7 @@ public class PodcastIdentifier {
     private String podcastId;
 
     public PodcastIdentifier (){
-        this.podcastId = "podcast - " + java.util.UUID.randomUUID().toString();
+        this.podcastId = "pod_country_" + java.util.UUID.randomUUID().toString();
     }
 
     public PodcastIdentifier(String podcastId){

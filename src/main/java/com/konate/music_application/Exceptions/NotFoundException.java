@@ -1,4 +1,4 @@
-package com.konate.music_application.ArtistService.Exceptions;
+package com.konate.music_application.Exceptions;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(String message) {

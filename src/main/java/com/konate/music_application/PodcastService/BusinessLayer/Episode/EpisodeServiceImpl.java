@@ -5,7 +5,8 @@ import com.konate.music_application.PodcastService.DataLayer.Episode.EpisodeIden
 import com.konate.music_application.PodcastService.DataLayer.Episode.EpisodeRepository;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.Podcast;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.PodcastRepository;
-import com.konate.music_application.PodcastService.Exceptions.NotFoundException;
+import com.konate.music_application.Exceptions.InvalidInputException;
+import com.konate.music_application.Exceptions.NotFoundException;
 import com.konate.music_application.PodcastService.MappingLayer.Episode.EpisodeRequestMapper;
 import com.konate.music_application.PodcastService.MappingLayer.Episode.EpisodeResponseMapper;
 import com.konate.music_application.PodcastService.PresentationLayer.Episode.EpisodeRequestModel;
@@ -13,6 +14,7 @@ import com.konate.music_application.PodcastService.PresentationLayer.Episode.Epi
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EpisodeServiceImpl implements EpisodeService{
@@ -44,11 +46,22 @@ public class EpisodeServiceImpl implements EpisodeService{
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
         if(podcast == null)
             throw new NotFoundException("Podcast not found with Id: " + podcastId);
-        Episode episode = requestMapper.toEntity(requestModel,
-                new EpisodeIdentifier(), podcast.getPodcastIdentifier());
-        Episode savedEpisode = episodeRepository.save(episode);
 
-        return responseMapper.toResponseModel(savedEpisode);
+        // Check for existing episode title to avoid duplicates
+        Episode byTitle = episodeRepository.findAllByEpisodeTitle(requestModel.getEpisodeTitle());
+        if(byTitle != null) {
+            throw new InvalidInputException("Episode with title '" + requestModel.getEpisodeTitle() + "' already exists.");
+        }
+
+        try {
+            Episode episode = requestMapper.toEntity(requestModel,
+                    new EpisodeIdentifier(), podcast.getPodcastIdentifier());
+            Episode savedEpisode = episodeRepository.save(episode);
+            return responseMapper.toResponseModel(savedEpisode);
+        } catch (Exception e) {
+            // Log the error and throw a custom exception instead of a generic 500
+            throw new InvalidInputException("Could not create episode: " + e.getMessage());
+        }
     }
 
     @Override
@@ -59,6 +72,8 @@ public class EpisodeServiceImpl implements EpisodeService{
         Episode episode = episodeRepository.findAllByEpisodeIdentifier_EpisodeId(episodeId);
         if (episode == null)
             throw new NotFoundException("Episode not found at: " + episodeId);
+        if(!Objects.equals(podcast.getPodcastIdentifier().getPodcastId(), episode.getPodcastIdentifier().getPodcastId()))
+            throw new NotFoundException("Episode: " + episodeId + " not found in the podcast: " + podcastId);
         return responseMapper.toResponseModel(episode);
     }
 
@@ -70,6 +85,9 @@ public class EpisodeServiceImpl implements EpisodeService{
         Episode episode = episodeRepository.findAllByEpisodeIdentifier_EpisodeId(episodeId);
         if (episode == null)
             throw new NotFoundException("Episode not found at: " + episodeId);
+        if(!Objects.equals(podcast.getPodcastIdentifier().getPodcastId(), episode.getPodcastIdentifier().getPodcastId()))
+            throw new NotFoundException("Episode: " + episodeId + " not found in the podcast: " + podcastId);
+
         episode.setEpisodeTitle(requestModel.getEpisodeTitle());
         episode.setDuration(requestModel.getDuration());
         episode.setPublishDate(requestModel.getPublishDate());
@@ -87,6 +105,8 @@ public class EpisodeServiceImpl implements EpisodeService{
         Episode episode = episodeRepository.findAllByEpisodeIdentifier_EpisodeId(episodeId);
         if (episode == null)
             throw new NotFoundException("Episode not found at: " + episodeId);
+        if(!Objects.equals(podcast.getPodcastIdentifier().getPodcastId(), episode.getPodcastIdentifier().getPodcastId()))
+            throw new NotFoundException("Episode: " + episodeId + " not found in the podcast: " + podcastId);
 
         episodeRepository.delete(episode);
 

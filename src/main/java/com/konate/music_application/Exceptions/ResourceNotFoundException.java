@@ -1,4 +1,4 @@
-package com.konate.music_application.ArtistService.Exceptions;
+package com.konate.music_application.Exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

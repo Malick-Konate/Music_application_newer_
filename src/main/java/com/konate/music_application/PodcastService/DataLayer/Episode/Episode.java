@@ -10,7 +10,7 @@ import java.util.Date;
 import java.sql.Time;
 
 @Entity
-@Table(name = "Episode")
+@Table(name = "episode")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

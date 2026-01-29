@@ -3,7 +3,7 @@ package com.konate.music_application.PodcastService.BusinessLayer.Podcast;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.Podcast;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.PodcastIdentifier;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.PodcastRepository;
-import com.konate.music_application.PodcastService.Exceptions.NotFoundException;
+import com.konate.music_application.Exceptions.NotFoundException;
 import com.konate.music_application.PodcastService.MappingLayer.Podcast.PodcastRequestMapper;
 import com.konate.music_application.PodcastService.MappingLayer.Podcast.PodcastResponseMapper;
 import com.konate.music_application.PodcastService.PresentationLayer.Podcast.PodcastRequestModel;

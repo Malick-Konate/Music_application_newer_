@@ -193,6 +193,26 @@ package "Order Sub-Domain" as OrderService <<Rectangle>> #Salmon {
 VALUE_OBJECT(OrderId) #Bisque {
 +id: UUID
 }
+VALUE_OBJECT(Payment) #Bisque{
++ amount: BigDecimal
++ paidAt: LocalDateTime
++method: PaymentMethod
++ currency: String
++ status: PaymentStatus
+
+}
+ENUM(PaymentMethod){
+CREDIT_CARD
+ PAYPAL
+  STRIPE
+}
+ENUM(PaymentStatus){
+PENDING
+ COMPLETED
+ FAILED
+ REFUNDED
+
+}
     ENUM (OrderStatus) {
         PENDING
         COMPLETED
@@ -204,6 +224,10 @@ VALUE_OBJECT(OrderId) #Bisque {
         PODCAST_SUBSCRIPTION
         ARTIST_DONATION
     }
+
+    Payment --> PaymentMethod
+    Payment --> PaymentStatus
+    Order --> Payment
 }
 ' -------------------------------------------
     ' 6. AD SERVICE (New Aggregate)

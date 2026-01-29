@@ -1,6 +1,6 @@
 package com.konate.music_application.ArtistService.BusinessLayer;
 
-import com.konate.music_application.ArtistService.Exceptions.NotFoundException;
+import com.konate.music_application.Exceptions.NotFoundException;
 import com.konate.music_application.ArtistService.MappingLayer.ArtistRequestMapper;
 import com.konate.music_application.ArtistService.MappingLayer.ArtistResponseMapper;
 import com.konate.music_application.ArtistService.Presentation.ArtistRequestModel;

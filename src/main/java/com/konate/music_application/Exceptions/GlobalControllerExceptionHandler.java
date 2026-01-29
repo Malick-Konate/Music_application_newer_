@@ -1,4 +1,4 @@
-package com.konate.music_application.UserService.Exceptions;
+package com.konate.music_application.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import static org.springframework.http.HttpStatus.*;
 
 
 @RestControllerAdvice
@@ -24,6 +23,11 @@ public class GlobalControllerExceptionHandler {
         return createHttpErrorInfo(NOT_FOUND, request, ex);
     }
 
+    @ResponseStatus(CONFLICT)
+    @ExceptionHandler(UserFound.class)
+    public HttpErrorInfo handleUserFound(WebRequest request, Exception ex) {
+        return createHttpErrorInfo(CONFLICT, request, ex);
+    }
 
     @ResponseStatus(UNPROCESSABLE_ENTITY)
     @ExceptionHandler(InvalidInputException.class)
@@ -31,11 +35,17 @@ public class GlobalControllerExceptionHandler {
         return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
     }
 
-    @ResponseStatus(UNPROCESSABLE_ENTITY)
-    @ExceptionHandler(DuplicateVinException.class)
-    public HttpErrorInfo handleDuplicateVinException(WebRequest request, Exception ex) {
-        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
+    @ResponseStatus(CONFLICT)
+    @ExceptionHandler(InvalidOrderStateException.class)
+    public HttpErrorInfo handleInvalidOrderStateException(WebRequest request, Exception ex) {
+        return createHttpErrorInfo(CONFLICT, request, ex);
     }
+
+//    @ResponseStatus(UNPROCESSABLE_ENTITY)
+//    @ExceptionHandler(DuplicateVinException.class)
+//    public HttpErrorInfo handleDuplicateVinException(WebRequest request, Exception ex) {
+//        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
+//    }
 
 
 

@@ -55,9 +55,6 @@ VALUES ('ALB-001', 'ART-001', 'Whiskey Roads', '2021-03-15', 'Lone Star Records'
 
 
 
-
-
-
 INSERT INTO song (album_id, title, duration, lyrics)
 VALUES
 -- Songs for Johnny Cash's "Whiskey Roads"
@@ -97,247 +94,207 @@ VALUES
 
 
 
+# INSERT INTO users (user_id, username, password, email, fullname, country, age)
+# VALUES ('USR-001', 'nroos', 'hashed_pw_001', 'Nathan.Roos@example.com', 'Nathan Roos', 'Canada', 19),
+#        ('USR-002', 'jroos', 'hashed_pw_002', 'Jeremy.Roos@example.com', 'Jeremy Roos', 'Canada', 19),
+#        ('USR-003', 'iwallace', 'hashed_pw_003', 'Isaac.Wallace@example.com', 'Isaac Wallace', 'Canada', 21),
+#        ('USR-004', 'nkonate', 'hashed_pw_004', 'Naima.Konate@example.com', 'Naima Konate', 'Canada', 16),
+#        ('USR-005', 'Bwood', 'hashed_pw_005', 'Brendon.Wood@example.com', 'Brendon Wood', 'USA', 40),
+#        ('USR-006', 'cgerald', 'hashed_pw_006', 'Christine.Gerald@example.com', 'Christine Gerald', 'United Kingdom',
+#         35),
+#        ('USR-007', 'mkonate', 'hashed_pw_007', 'Malick.Konate@example.com', 'Malick Konate', 'Canada', 22),
+#        ('USR-008', 'hnguyen', 'hashed_pw_008', 'Hannah.Nguyen@example.com', 'Hannah Nguyen', 'USA', 25),
+#        ('USR-009', 'jmiller', 'hashed_pw_009', 'Julia.Miller@example.com', 'Julia Miller', 'USA', 49),
+#        ('USR-010', 'ebrown', 'hashed_pw_010', 'Ella.Brown@email.com', 'Ella Brown', 'USA', 17);
+
+
 INSERT INTO users (user_id, username, password, email, fullname, country, age)
-VALUES ('USR-001', 'nroos', 'hashed_pw_001', 'Nathan.Roos@example.com', 'Nathan Roos', 'Canada',  19),
-       ('USR-002', 'jroos', 'hashed_pw_002', 'Jeremy.Roos@example.com', 'Jeremy Roos', 'Canada',  19),
-       ('USR-003', 'iwallace', 'hashed_pw_003', 'Isaac.Wallace@example.com', 'Isaac Wallace', 'Canada', 21),
-       ('USR-004', 'nkonate', 'hashed_pw_004', 'Naima.Konate@example.com', 'Naima Konate', 'Canada',  16),
-       ('USR-005', 'Bwood', 'hashed_pw_005', 'Brendon.Wood@example.com', 'Brendon Wood', 'USA', 40),
-       ('USR-006', 'cgerald', 'hashed_pw_006', 'Christine.Gerald@example.com', 'Christine Gerald', 'United Kingdom', 35),
-       ('USR-007', 'mkonate', 'hashed_pw_007', 'Malick.Konate@example.com', 'Malick Konate', 'Canada', 22),
-       ('USR-008', 'hnguyen', 'hashed_pw_008', 'Hannah.Nguyen@example.com', 'Hannah Nguyen', 'USA',  25),
-       ('USR-009', 'jmiller', 'hashed_pw_009', 'Julia.Miller@example.com', 'Julia Miller', 'USA', 49),
-       ('USR-010', 'ebrown', 'hashed_pw_010', 'Ella.Brown@example.com', 'Ella Brown', 'USA', 17);
+VALUES ('user-001', 'malick', 'hashed_pwd_1', 'malick@email.com', 'Malick Konate', 'Canada', 22),
+       ('user-002', 'amina', 'hashed_pwd_2', 'amina@email.com', 'Amina Diallo', 'France', 25),
+       ('user-003', 'john_d', 'hashed_pwd_3', 'john@email.com', 'John Doe', 'USA', 30),
+       ('user-004', 'fatima', 'hashed_pwd_4', 'fatima@email.com', 'Fatima Noor', 'UK', 27),
+       ('user-005', 'alexm', 'hashed_pwd_5', 'alex@email.com', 'Alex Martin', 'Germany', 35),
+       ('user-006', 'ebrown', 'hashed_pw_010', 'Ella.Brown@email.com', 'Ella Brown', 'USA', 17),
+       ('user-007', 'cgerald', 'hashed_pw_006', 'Christine.Gerald@email.com', 'Christine Gerald', 'UK', 35);
+
+-- --------------------------------------------------------
+-- DATA FOR TABLE: podcast
+-- Theme: Country Music, Bluegrass, Americana
+-- --------------------------------------------------------
+
+INSERT INTO podcast (podcast_id, title, hostname, description, pricing_model)
+VALUES ('pod_country_001', 'Honky Tonk History', 'Clint Blackman',
+        'Deep dives into the history of classic country music from the 1950s to the 1990s.', 'FREE'),
+       ('pod_country_002', 'Nashville Insider', 'Sarah Twang',
+        'Behind the scenes news and interviews from Music City USA.', 'SUBSCRIPTION'),
+       ('pod_country_003', 'Bluegrass Breakdown', 'Earl Scruggs Jr.',
+        'Exploring the fast-picking world of banjos, fiddles, and mandolins.', 'FREE'),
+       ('pod_country_004', 'The Slide Guitar Hour', 'Jerry Douglas Fan',
+        'Tutorials and appreciation for dobro and slide guitar techniques.', 'PER_EPISODE'),
+       ('pod_country_005', 'Modern Country Monthly', 'Taylor Shelton',
+        'Reviews and discussions on the latest hits topping the Billboard Country charts.', 'FREE'),
+       ('pod_country_006', 'Legends of the Grand Ole Opry', 'Opry Fanatic',
+        'Stories about the most legendary performances on the most famous stage in country music.', 'SUBSCRIPTION'),
+       ('pod_country_007', 'Texas Red Dirt Radio', 'Pat Greenish',
+        'Focusing on the gritty, independent country music scene from Texas and Oklahoma.', 'FREE'),
+       ('pod_country_008', 'Songwriters Circle', 'Kris Kristofferson AI',
+        'Deconstructing the lyrics and composition of the greatest country songs ever written.', 'PER_EPISODE'),
+       ('pod_country_009', 'Banjo & Bourbon', 'The Kentucky Boys',
+        'Casual conversations about roots music over a glass of fine bourbon.', 'FREE'),
+       ('pod_country_010', 'Women of Country', 'Dolly Parton Tribute',
+        'Celebrating the female trailblazers of country music from Patsy Cline to Miranda Lambert.', 'FREE'),
+       ('pod_country_011', 'Outlaw Country Chronicles', 'Waylon Willie',
+        'Tales from the rebellious side of country music featuring Willie, Waylon, and Merle.', 'SUBSCRIPTION'),
+       ('pod_country_012', 'Folk & Americana Roots', 'John Prine Spirit',
+        'Exploring the softer, storytelling side of American roots music.', 'FREE'),
+       ('pod_country_013', 'Truckers Tunes', 'Big Rig Rob',
+        'The best driving songs for long hauls across the interstate.', 'PER_EPISODE'),
+       ('pod_country_014', 'Gospel Country Sunday', 'Reverend Cash',
+        'Uplifting country gospel music for your Sunday morning.', 'FREE'),
+       ('pod_country_015', 'Steel Guitar Secrets', 'Paul Franklin Fan',
+        'Technical deep dives into pedal steel guitar mechanics and playing styles.', 'SUBSCRIPTION');
+-- --------------------------------------------------------
+-- DATA FOR TABLE: episode
+-- Theme: Country Music Deep Dives
+-- --------------------------------------------------------
+
+INSERT INTO episode (episode_id, podcast_id, title, duration, publish_date, status)
+VALUES
+-- Episodes for pod_country_001 (Honky Tonk History)
+('ep_001', 'pod_country_001', 'The Rise of Hank Williams', '00:45:00', '2023-01-15', 'PUBLISHED'),
+('ep_002', 'pod_country_001', 'Johnny Cash at Folsom Prison: The Full Story', '01:10:00', '2023-02-01', 'PUBLISHED'),
+('ep_003', 'pod_country_001', 'The Outlaw Movement: Waylon and Willie', '00:55:00', '2023-02-15', 'PUBLISHED'),
+('ep_004', 'pod_country_001', 'Classic Duets: George and Tammy', '00:50:00', '2023-03-01', 'PUBLISHED'),
+
+-- Episodes for pod_country_002 (Nashville Insider)
+('ep_005', 'pod_country_002', 'Exclusive: Interview with Carrie Underwoods Producer', '00:30:00', '2023-10-12',
+ 'PUBLISHED'),
+('ep_006', 'pod_country_002', 'The Future of the Grand Ole Opry', '00:35:00', '2023-10-19', 'PUBLISHED'),
+('ep_007', 'pod_country_002', 'CMA Awards: Predictions and Snubs', '00:40:00', '2023-10-26', 'PUBLISHED'),
+
+-- Episodes for pod_country_003 (Bluegrass Breakdown)
+('ep_008', 'pod_country_003', 'Bill Monroe: The Father of Bluegrass', '00:55:00', '2023-05-20', 'PUBLISHED'),
+('ep_009', 'pod_country_003', 'Fiddle vs. Violin: The Great Debate', '00:40:00', '2023-06-15', 'PUBLISHED'),
+('ep_010', 'pod_country_003', 'Modern Bluegrass: The Billy Strings Effect', '01:05:00', '2023-07-01', 'PUBLISHED'),
+('ep_011', 'pod_country_003', 'Mastering the Scruggs Style Banjo', '00:50:00', '2023-07-15', 'PUBLISHED'),
+
+-- Episodes for pod_country_004 (The Slide Guitar Hour)
+('ep_012', 'pod_country_004', 'Mastering Open G Tuning', '00:25:00', '2023-11-05', 'PUBLISHED'),
+('ep_013', 'pod_country_004', 'Dobro Legends: Josh Graves to Jerry Douglas', '00:45:00', '2023-11-12', 'PUBLISHED'),
+('ep_014', 'pod_country_004', 'Lap Steel Basics for Beginners', '00:30:00', '2023-11-19', 'PUBLISHED'),
+
+-- Episodes for pod_country_005 (Modern Country Monthly)
+('ep_015', 'pod_country_005', 'Review: The New Luke Combs Album', '00:45:00', '2023-09-01', 'PUBLISHED'),
+('ep_016', 'pod_country_005', 'Morgan Wallen and the Streaming Era', '00:50:00', '2023-09-15', 'PUBLISHED'),
+('ep_017', 'pod_country_005', 'The Evolution of Country-Pop', '00:40:00', '2023-10-01', 'PUBLISHED'),
+('ep_018', 'pod_country_005', 'Rising Stars: Who to Watch in 2024', '00:35:00', '2023-11-01', 'PUBLISHED'),
+
+-- pod_country_006 (Legends of the Grand Ole Opry)
+('ep_019', 'pod_country_006', 'Minnie Pearls Best Jokes', '00:20:00', '2023-03-10', 'ARCHIVED'),
+('ep_020', 'pod_country_006', 'The Night Hank Williams Was Banned', '00:55:00', '2023-03-17', 'PUBLISHED'),
+('ep_021', 'pod_country_006', 'Dolly Partons Opry Debut', '00:45:00', '2023-03-24', 'PUBLISHED'),
+
+-- pod_country_007 (Texas Red Dirt Radio)
+('ep_022', 'pod_country_007', 'Why Texas Country is Different from Nashville', '01:00:00', '2023-07-04', 'PUBLISHED'),
+('ep_023', 'pod_country_007', 'Live from Gruene Hall: Robert Earl Keen', '01:15:00', '2023-07-11', 'PUBLISHED'),
+('ep_024', 'pod_country_007', 'The Red Dirt Revolution in Oklahoma', '00:50:00', '2023-07-18', 'PUBLISHED'),
+('ep_025', 'pod_country_007', 'Acoustic Session: Cody Johnson', '00:40:00', '2023-07-25', 'PUBLISHED'),
+
+-- pod_country_008 (Songwriters Circle)
+('ep_026', 'pod_country_008', 'Deconstructing The Gambler by Kenny Rogers', '00:50:00', '2023-08-15', 'PUBLISHED'),
+('ep_027', 'pod_country_008', 'The Art of the Story Song', '00:45:00', '2023-08-22', 'PUBLISHED'),
+('ep_028', 'pod_country_008', 'Guy Clark: The Craftsman of Country', '01:05:00', '2023-08-29', 'PUBLISHED'),
+
+-- pod_country_009 (Banjo & Bourbon)
+('ep_029', 'pod_country_009', 'Old-Time vs. Three-Finger Picking', '00:55:00', '2023-09-05', 'PUBLISHED'),
+('ep_030', 'pod_country_009', 'Kentucky Bourbon Tasting with Bela Fleck', '01:10:00', '2023-09-12', 'PUBLISHED'),
+('ep_031', 'pod_country_009', 'The History of the Clawhammer Style', '00:45:00', '2023-09-19', 'PUBLISHED'),
+
+-- pod_country_010 (Women of Country)
+('ep_032', 'pod_country_010', 'Patsy Cline: Walking After Midnight', '00:35:00', '2023-04-22', 'PUBLISHED'),
+('ep_033', 'pod_country_010', 'Loretta Lynn: The Coal Miners Daughter', '00:50:00', '2023-04-29', 'PUBLISHED'),
+('ep_034', 'pod_country_010', 'The Highwomen: A New Era', '00:45:00', '2023-05-06', 'PUBLISHED'),
+('ep_035', 'pod_country_010', 'Tammy Wynette and the First Lady of Country', '00:40:00', '2023-05-13', 'PUBLISHED'),
+
+-- pod_country_011 (Outlaw Country Chronicles)
+('ep_036', 'pod_country_011', 'The Story of Willie Nelsons Guitar Trigger', '00:48:00', '2023-12-01', 'PUBLISHED'),
+('ep_037', 'pod_country_011', 'Waylon Jennings: Dreaming My Dreams', '00:55:00', '2023-12-08', 'PUBLISHED'),
+('ep_038', 'pod_country_011', 'Merle Haggard: Mama Tried', '01:00:00', '2023-12-15', 'PUBLISHED'),
+
+-- pod_country_012 (Folk & Americana Roots)
+('ep_039', 'pod_country_012', 'The Carter Family Tree Explained', '01:15:00', '2023-02-28', 'PUBLISHED'),
+('ep_040', 'pod_country_012', 'Woody Guthrie: This Land is Your Land', '00:45:00', '2023-03-07', 'PUBLISHED'),
+('ep_041', 'pod_country_012', 'The Newport Folk Festival Scandal', '00:50:00', '2023-03-14', 'PUBLISHED'),
+
+-- pod_country_013 (Truckers Tunes)
+('ep_042', 'pod_country_013', 'Top 10 Songs for a Cross-Country Drive', '00:42:00', '2023-11-20', 'PUBLISHED'),
+('ep_043', 'pod_country_013', 'Six Days on the Road: History of a Classic', '00:30:00', '2023-11-27', 'PUBLISHED'),
+('ep_044', 'pod_country_013', 'Jerry Reed: The Snowman of Country Music', '00:45:00', '2023-12-04', 'PUBLISHED'),
+('ep_045', 'pod_country_013', 'The Best Truck Stops and Radio Stations', '00:50:00', '2023-12-11', 'PUBLISHED'),
+
+-- pod_country_014 (Gospel Country Sunday)
+('ep_046', 'pod_country_014', 'The Gospel Side of Elvis Presley', '00:40:00', '2024-01-07', 'PUBLISHED'),
+('ep_047', 'pod_country_014', 'Old Rugged Cross: Evolution of a Hymn', '00:35:00', '2024-01-14', 'PUBLISHED'),
+('ep_048', 'pod_country_014', 'Bluegrass Gospel Essentials', '00:45:00', '2024-01-21', 'PUBLISHED'),
+
+-- pod_country_015 (Steel Guitar Secrets)
+('ep_049', 'pod_country_015', 'Pedal Steel Maintenance 101', '00:28:00', '2023-10-30', 'PUBLISHED'),
+('ep_050', 'pod_country_015', 'The C6 vs E9 Tuning Explained', '01:05:00', '2023-11-06', 'PUBLISHED'),
+('ep_051', 'pod_country_015', 'How to Play a Cryin Steel Lick', '00:40:00', '2023-11-13', 'PUBLISHED'),
+('ep_052', 'pod_country_015', 'Interview: Modern Steel Legend Buddy Emmons', '01:20:00', '2023-11-20', 'PUBLISHED');
 
 
-INSERT INTO documentaries (documentary_id, artist_id, title, release_date, description, duration, language,
-                           country_of_origin, director, producer, production_company, genre, video_url,
-                           media_key, media_type)
-VALUES ('DOC-001', 'ART-001', 'The Road of a Legend', '2021-05-12',
-        'An intimate look at the life and struggles of a legendary country artist.',
-        95, 'English', 'USA', 'James Carter', 'Megan White', 'Lonestar Studios',
-        'Biography', 'http://videos.example.com/doc1.mp4', 'media-001', 'DOCUMENTARY'),
-       ('DOC-002', 'ART-002', 'Behind the Strings', '2020-09-22',
-        'A journey into the creative process of one of the greatest guitar players.',
-        80, 'English', 'Canada', 'Sophia Turner', 'Michael Reed', 'Skyline Productions',
-        'Music', 'http://videos.example.com/doc2.mp4', 'media-002', 'DOCUMENTARY'),
-       ('DOC-003', 'ART-003', 'Voices of the Heartland', '2022-03-15',
-        'Exploring how country music connects generations and cultures.',
-        120, 'English', 'USA', 'Daniel Scott', 'Rachel Green', 'Dusty Trails Media',
-        'Cultural', 'http://videos.example.com/doc3.mp4', 'media-003', 'DOCUMENTARY'),
-       ('DOC-004', 'ART-004', 'Cowboy Chronicles', '2019-11-30',
-        'An authentic portrayal of cowboy culture through the lens of music.',
-        105, 'Spanish', 'Mexico', 'Alejandro Ruiz', 'Carmen López', 'Sol y Sombra Films',
-        'Cultural', 'http://videos.example.com/doc4.mp4', 'media-004', 'DOCUMENTARY'),
-       ('DOC-005', 'ART-005', 'Northern Lights & Country Nights', '2023-01-18',
-        'Canadian country music and its rise on the international stage.',
-        90, 'English', 'Canada', 'Emily Johnson', 'Robert Lee', 'Maple Leaf Productions',
-        'Music', 'http://videos.example.com/doc5.mp4', 'media-005', 'DOCUMENTARY'),
-       ('DOC-006', 'ART-006', 'Queen of Country Pop', '2022-07-10',
-        'A behind-the-scenes journey into the life and career of Shania Twain, exploring her rise to global stardom.',
-        110, 'English', 'Canada', 'Laura Bennett', 'Chris Morgan', 'Prairie Light Films',
-        'Biography', 'http://videos.example.com/doc6.mp4', 'media-006', 'DOCUMENTARY'),
+-- 10 ORDERS
+-- 1. ORDERS
+-- Linked to user-001 through user-007 as defined in your users table
+INSERT INTO `orders` (order_id, user_id, order_status)
+VALUES ('ord_101', 'user-001', 'COMPLETED'),
+       ('ord_102', 'user-002', 'COMPLETED'),
+       ('ord_103', 'user-003', 'PENDING'),
+       ('ord_104', 'user-004', 'COMPLETED'),
+       ('ord_105', 'user-005', 'CANCELLED'),
+       ('ord_106', 'user-006', 'COMPLETED'),
+       ('ord_107', 'user-007', 'PENDING'),
+       ('ord_108', 'user-005', 'COMPLETED'),
+       ('ord_109', 'user-001', 'COMPLETED'),
+       ('ord_110', 'user-006', 'COMPLETED');
 
-       ('DOC-007', 'ART-007', 'Strings of the Soul', '2021-09-25',
-        'Chris Stapleton’s soulful voice and guitar artistry captured in this powerful and emotional documentary.',
-        85, 'English', 'USA', 'David Miller', 'Anna Roberts', 'Southern Star Media',
-        'Music', 'http://videos.example.com/doc7.mp4', 'media-007', 'DOCUMENTARY'),
+-- 2. ORDER ITEMS
+-- display_name and artist_name now match your ALBUM and PODCAST tables exactly
+INSERT INTO order_items (order_id, product_type, display_name, price, quantity, artist_name)
+VALUES
+-- Order 101: Johnny Cash Album
+('ord_101', 'ALBUM_PURCHASE', 'Whiskey Roads', 14.99, 1, 'Johnny Cash'),
+-- Order 102: Nashville Insider (Subscription)
+('ord_102', 'PODCAST_SUBSCRIPTION', 'Nashville Insider', 4.99, 1, 'Sarah Twang'),
+-- Order 103: Support for Johnny Cash
+('ord_103', 'ARTIST_DONATION', 'Artist Support', 25.00, 1, 'Johnny Cash'),
+-- Order 104: Reba Album + Donation
+('ord_104', 'ALBUM_PURCHASE', 'Cowboy Sunset', 14.99, 1, 'Reba McEntire'),
+('ord_104', 'ARTIST_DONATION', 'Tip Jar', 5.00, 1, 'Reba McEntire'),
+-- Order 105: Dolly Parton Album (Cancelled)
+('ord_105', 'ALBUM_PURCHASE', 'Southern Skies', 12.99, 1, 'Dolly Parton'),
+-- Order 106: Honky Tonk History (Free Podcast, but let's assume a 'Support' tier)
+('ord_106', 'PODCAST_SUBSCRIPTION', 'Honky Tonk History', 4.99, 1, 'Clint Blackman'),
+-- Order 107: Willie Nelson Album
+('ord_107', 'ALBUM_PURCHASE', 'Heartland Echoes', 14.99, 1, 'Willie Nelson'),
+-- Order 108: Chris Stapleton Donation
+('ord_108', 'ARTIST_DONATION', 'Monthly Patron', 10.00, 1, 'Chris Stapleton'),
+-- Order 109: Shania Twain Album
+('ord_109', 'ALBUM_PURCHASE', 'Gravel and Grace', 14.99, 1, 'Shania Twain'),
+-- Order 110: Bluegrass Breakdown (Free Podcast)
+('ord_110', 'PODCAST_SUBSCRIPTION', 'Bluegrass Breakdown', 0.00, 1, 'Earl Scruggs Jr.');
 
-       ('DOC-008', 'ART-008', 'Golden Horizons', '2023-03-12',
-        'Kacey Musgraves shares her creative journey, blending tradition and innovation in modern country music.',
-        95, 'English', 'USA', 'Olivia Perez', 'Nathan Clark', 'Harmony Pictures',
-        'Artistic', 'http://videos.example.com/doc8.mp4', 'media-008', 'DOCUMENTARY'),
-
-       ('DOC-009', 'ART-009', 'Born for the Stage', '2020-11-08',
-        'From small-town beginnings to sold-out stadiums, Luke Combs’ rise to fame is documented in raw detail.',
-        100, 'English', 'USA', 'Mark Wilson', 'Jessica Hayes', 'Big Sky Productions',
-        'Biography', 'http://videos.example.com/doc9.mp4', 'media-009', 'DOCUMENTARY'),
-
-       ('DOC-010', 'ART-010', 'Faith and Fame', '2024-02-14',
-        'Carrie Underwood’s inspiring journey of faith, resilience, and success in the world of country music.',
-        88, 'English', 'USA', 'Rachel Adams', 'Thomas King', 'Bright Path Studios',
-        'Inspirational', 'http://videos.example.com/doc10.mp4', 'media-010', 'DOCUMENTARY');
-
-
--- Insert Orders
-# INSERT INTO orders (order_id, concert_id, documentary_id, user_id, total_amount, order_status)
-# VALUES ('ord-001', 'CON-003', 'DOC-003', 'USR-001', 120.00, 'PENDING'),
-#        ('ord-002', 'CON-002', 'DOC-005', 'USR-009', 200.00, 'PAID'),
-#        ('ord-003', 'CON-004', 'DOC-001', 'USR-007', 15.00, 'FAILED'),
-#        ('ord-004', 'CON-001', 'DOC-004', 'USR-010', 350.00, 'PAID'),
-#        ('ord-005', 'CON-005', 'DOC-002', 'USR-006', 25.00, 'PENDING'),
-#        ('ord-006', 'CON-006', 'DOC-006', 'USR-002', 75.00, 'PAID'),
-#        ('ord-007', 'CON-007', 'DOC-007', 'USR-003', 180.00, 'PENDING'),
-#        ('ord-008', 'CON-008', 'DOC-008', 'USR-004', 99.99, 'FAILED'),
-#        ('ord-009', 'CON-009', 'DOC-009', 'USR-005', 250.00, 'PAID'),
-#        ('ord-010', 'CON-010', 'DOC-010', 'USR-008', 45.00, 'PAID'),
-#        ('ord-011', 'CON-003', 'DOC-003', 'USR-001', 130.00, 'PAID');
-# -- Additional order for testing
-#
-# -- Insert Payments
-# INSERT INTO payment (payment_id, payment_status, order_id)
-# VALUES ('pay-001', 'PENDING', 'ord-001'),
-#        ('pay-002', 'COMPLETED', 'ord-002'),
-#        ('pay-003', 'FAILED', 'ord-003'),
-#        ('pay-004', 'COMPLETED', 'ord-004'),
-#        ('pay-005', 'PENDING', 'ord-005'),
-#        ('pay-006', 'COMPLETED', 'ord-006'),
-#        ('pay-007', 'PENDING', 'ord-007'),
-#        ('pay-008', 'FAILED', 'ord-008'),
-#        ('pay-009', 'COMPLETED', 'ord-009'),
-#        ('pay-010', 'REFUNDED', 'ord-010'),
-#        ('pay-011', 'COMPLETED', 'ord-011');
-
--- Insert orders
-INSERT INTO orders (order_id, concert_id, documentary_title, customer_name, customer_email, total_amount, order_status)
-VALUES ('ORD-001', 'CON-001', 'Cowboy Chronicles', 'Alice Johnson', 'alice@example.com', 120.00, 'PAID'),
-       ('ORD-002', 'CON-005', 'Strings of the Soul', 'Brian Smith', 'bob@example.com', 15.99, 'PAID'),
-       ('ORD-003', 'CON-003', 'Faith and Fame', 'Clara Brown', 'diana@example.com', 200.00, 'PENDING'),
-       ('ORD-004', 'CON-002', 'The Road of a Legend', 'David Wilson', 'george@example.com', 75.50, 'FAILED'),
-       ('ORD-005', 'CON-008', 'Born for the Stage', 'Eva Martinez', 'isabella@example.com', 25.00, 'PAID'),
-       ('ORD-006', 'CON-002', 'Voices of the Heartland', 'Farah', 'farah@example.com', 75.50, 'FAILED'),
-       ('ORD-007', 'CON-009', 'Faith and Fame', 'David Wilson', 'hannah@example.com', 75.50, 'FAILED'),
-       ('ORD-008', 'CON-007', 'Voices of the Heartland', 'Julia', 'julia@example.com', 75.50, 'PAID'),
-       ('ORD-009', 'CON-007', 'Voices of the Heartland', 'Ivan', 'ivan@example.com', 75.50, 'PAID')
-
-;
-
--- Insert payments
-INSERT INTO payment (order_id, payment_status, payment_method, amount, transaction_date)
-VALUES ('ORD-001', 'COMPLETED', 'CREDIT_CARD', 120.00, '2025-08-15 14:30:00'),
-       ('ORD-002', 'COMPLETED', 'PAYPAL', 15.99, '2025-08-16 09:10:00'),
-       ('ORD-003', 'PENDING', 'BANK_TRANSFER', 200.00, '2025-08-17 18:45:00'),
-       ('ORD-004', 'FAILED', 'CASH', 75.50, '2025-08-18 11:20:00'),
-       ('ORD-005', 'COMPLETED', 'DEBIT_CARD', 25.00, '2025-08-18 21:05:00');
-
--- Payment for the additional order
-
--- Link Payments ↔ Orders
-# INSERT INTO order_payments (payment_id, order_id)
-# VALUES ('pay-001', 'ord-001'), -- pay-001 → ord-001
-#        ('pay-002', 'ord-002'), -- pay-002 → ord-002
-#        ('pay-003', 'ord-003'), -- pay-003 → ord-003
-#        ('pay-004', 'ord-004'), -- pay-004 → ord-004
-#        ('pay-005', 'ord-005'), -- pay-005 → ord-005
-#        ('pay-006', 'ord-006'),
-#        ('pay-007', 'ord-007'),
-#        ('pay-008', 'ord-008'),
-#        ('pay-009', 'ord-009'),
-#        ('pay-010', 'ord-010'),
-#        ('pay-011', 'ord-011');
--- pay-011 → ord-011
-
-
--- Insert Fans
-# INSERT INTO fan (fan_id, first_name, last_name, email, phone_number, country, password, order_id)
-# VALUES
-#     ('fan-001', 'Alice', 'Johnson', 'alice@example.com', '1234567890', 'USA', 'hashed_pw1'),
-#     ('fan-002', 'Bob', 'Smith', 'bob@example.com', '9876543210', 'Canada', 'hashed_pw2'),
-#     ('fan-003', 'Charlie', 'Brown', 'charlie@example.com', '5557778888', 'UK', 'hashed_pw3'),
-#     ('fan-004', 'Malick', 'Konate', 'malick@example.com','1115559977','Australia','hashed_pw4'),
-#     ('fan-005', 'Diana', 'Miller', 'diana@example.com','2226661234','USA','hashed_pw5'),
-#     ('fan-006', 'Ethan', 'Wang', 'ethan@example.com','3337775678','China','hashed_pw6'),
-#     ('fan-007', 'Fatima', 'Ali', 'fatima@example.com','4448883456','UAE','hashed_pw7'),
-#     ('fan-008', 'George', 'Lopez', 'george@example.com','5559994567','Mexico','hashed_pw8'),
-#     ('fan-009', 'Hiro', 'Tanaka', 'hiro@example.com','6661117890','Japan','hashed_pw9'),
-#     ('fan-010', 'Isabella', 'Rossi', 'isabella@example.com','7772226543','Italy','hashed_pw10');
--- Insert Fans (with user_id + aligned columns)
-# INSERT INTO fan (fan_id, first_name, last_name, email, phone_number, country, order_id, user_id, password)
-# VALUES
-#     ('fan-001', 'Alice', 'Johnson', 'alice@example.com', '1234567890', 'USA', 'ord-001', 'USR-001', 'hashed_pw1'),
-#     ('fan-002', 'Bob', 'Smith', 'bob@example.com', '9876543210', 'Canada', 'ord-002', 'USR-002', 'hashed_pw2'),
-#     ('fan-003', 'Charlie', 'Brown', 'charlie@example.com', '5557778888', 'UK', 'ord-003', 'USR-003', 'hashed_pw3'),
-#     ('fan-004', 'Malick', 'Konate', 'malick@example.com','1115559977','Australia','ord-004','USR-004','hashed_pw4'),
-#     ('fan-005', 'Diana', 'Miller', 'diana@example.com','2226661234','USA','ord-005','USR-005','hashed_pw5'),
-#     ('fan-006', 'Ethan', 'Wang', 'ethan@example.com','3337775678','China','ord-006','USR-006','hashed_pw6'),
-#     ('fan-007', 'Fatima', 'Ali', 'fatima@example.com','4448883456','UAE','ord-007','USR-007','hashed_pw7'),
-#     ('fan-008', 'George', 'Lopez', 'george@example.com','5559994567','Mexico','ord-008','USR-008','hashed_pw8'),
-#     ('fan-009', 'Hiro', 'Tanaka', 'hiro@example.com','6661117890','Japan','ord-009','USR-009','hashed_pw9'),
-#     ('fan-010', 'Isabella', 'Rossi', 'isabella@example.com','7772226543','Italy','ord-010','USR-010','hashed_pw10');
--- Fans (no order_id anymore)
-# INSERT INTO fan (fan_id, first_name, last_name, email, phone_number, country, user_id, password)
-# VALUES ('FAN-001', 'Alice', 'Johnson', 'alice@example.com', '555-111-2222', 'Canada', 'USR-001', 'pw1'),
-#        ('FAN-002', 'Bob', 'Smith', 'bob@example.com', '555-333-4444', 'USA', 'USR-002', 'pw2'),
-#        ('FAN-003', 'Clara', 'Martinez', 'clara@example.com', '555-555-6666', 'Mexico', 'USR-003', 'pw3'),
-#        ('FAN-004', 'David', 'Lee', 'david@example.com', '555-777-8888', 'South Korea', 'USR-004', 'pw4'),
-#        ('FAN-005', 'Ella', 'Brown', 'ella@example.com', '555-999-0000', 'UK', 'USR-005', 'pw5'),
-#        ('FAN-006', 'Farah', 'Ali', 'farah@example.com', '555-121-1314', 'UAE', 'USR-006', 'pw6'),
-#        ('FAN-007', 'George', 'Taylor', 'george@example.com', '555-141-1516', 'USA', 'USR-007', 'pw7'),
-#        ('FAN-008', 'Hannah', 'Nguyen', 'hannah@example.com', '555-171-1819', 'Vietnam', 'USR-008', 'pw8'),
-#        ('FAN-009', 'Ivan', 'Petrov', 'ivan@example.com', '555-191-2021', 'Russia', 'USR-009', 'pw9'),
-#        ('FAN-010', 'Julia', 'Miller', 'julia@example.com', '555-212-2223', 'Germany', 'USR-010', 'pw10');
-
--- Fan orders (1..N per fan)
-# INSERT INTO fan_orders (fan_id, order_id)
-# VALUES ('FAN-001', 'ORD-001'),
-#        ('FAN-001', 'ORD-002'),
-#        ('FAN-002', 'ORD-002'),
-#        ('FAN-003', 'ORD-003'),
-#        ('FAN-004', 'ORD-004'),
-#        ('FAN-005', 'ORD-005'),
-#        ('FAN-006', 'ORD-006'),
-#        ('FAN-007', 'ORD-007'),
-#        ('FAN-008', 'ORD-008'),
-#        ('FAN-009', 'ORD-009'),
-#        ('FAN-010', 'ORD-010');
-
--- Insert Fan Preferences
-# INSERT INTO fan_preferences (fan_id, receive_notifications, preferred_genre, preferred_language, artist_id,
-#                              favorite_artist_name, created_at)
-# VALUES ('FAN-001', TRUE, 'Country Pop', 'English', 'ART-001', 'Dolly Parton', '2025-01-10'),
-#        ('FAN-002', TRUE, 'Outlaw Country', 'English', 'ART-002', 'Johnny Cash', '2025-02-11'),
-#        ('FAN-003', FALSE, 'Country Rock', 'Spanish', 'ART-003', 'Shania Twain', '2025-02-15'),
-#        ('FAN-004', TRUE, 'K-Country', 'Korean', 'ART-004', 'Jung Dong Ha', '2025-03-02'),
-#        ('FAN-005', FALSE, 'Bluegrass', 'English', 'ART-005', 'Alison Krauss', '2025-03-05'),
-#        ('FAN-006', TRUE, 'Country Soul', 'Arabic', 'ART-006', 'LeAnn Rimes', '2025-03-07'),
-#        ('FAN-007', TRUE, 'Classic Country', 'English', 'ART-007', 'Garth Brooks', '2025-03-10'),
-#        ('FAN-008', FALSE, 'Folk Country', 'Vietnamese', 'ART-008', 'Cam', '2025-03-12'),
-#        ('FAN-009', TRUE, 'Country Blues', 'Russian', 'ART-009', 'Kris Kristofferson', '2025-03-15'),
-#        ('FAN-010', TRUE, 'Modern Country', 'German', 'ART-010', 'Kacey Musgraves', '2025-03-18');
-#
-# -- Insert Playlists
-# INSERT INTO playlists (playlist_id, fan_id, playlist_name, description, added_at)
-# VALUES ('PL-001', 'FAN-001', 'Morning Country Vibes', 'Relaxing country music to start the day', '2025-03-01'),
-#        ('PL-002', 'FAN-002', 'Outlaw Classics', 'Best of outlaw country legends', '2025-03-02'),
-#        ('PL-003','FAN-003', 'Spanish Country Mix', 'Spanish and Latin country hits', '2025-03-03'),
-#        ('PL-004','FAN-004', 'K-Country Hits', 'Top Korean country-style ballads', '2025-03-04'),
-#        ('PL-005','FAN-005', 'Bluegrass Sunrise', 'Instrumental and vocal bluegrass', '2025-03-05'),
-#        ('PL-006','FAN-006', 'Desert Country Nights', 'Middle Eastern flavored country tracks', '2025-03-06'),
-#        ('PL-007','FAN-007', 'Classic Rodeo Tunes', 'Traditional rodeo country songs', '2025-03-07'),
-#        ('PL-008','FAN-008', 'Folk Journey', 'Vietnamese folk-country fusion', '2025-03-08'),
-#        ('PL-009','FAN-009', 'Russian Country Ballads', 'Local twist on American country blues', '2025-03-09'),
-#        ('PL-010','FAN-010', 'Modern Country Stars', 'Today’s best modern country artists', '2025-03-10');
-#
-# INSERT INTO playlist_items (playlist_id, album_id, album_title, song_title, song_duration, artist_name, date_added)
-# VALUES
-# -- Playlist 1
-# ('PL-001', 'ALB-001', 'Whiskey Roads', 'Highway of Shadows', '00:02:58', 'Parton', '10:30:00'),
-# ('PL-001', 'ALB-002', 'Southern Skies', 'Morning Light', '00:03:45', 'Underwood', '11:00:00'),
-#
-# -- Playlist 2
-# ('PL-002', 'ALB-003', 'Heartland Echoes', 'Echoes of Home', '00:04:12', 'Cash', '09:15:00'),
-# ('PL-002', 'ALB-004', 'Cowboy Sunset', 'Cowboy Sunset', '00:04:05', 'Nelson', '09:45:00'),
-#
-# -- Playlist 3
-# ('PL-003', 'ALB-005', 'Maple Leaf Dreams', 'Dreams of the Maple', '00:03:25', 'Twain', '12:00:00'),
-#
-# -- Playlist 4
-# ('PL-004', 'ALB-006', 'Gravel and Grace', 'Graceful Nights', '00:03:40', 'Dong Ha', '13:00:00'),
-#
-# -- Playlist 5
-# ('PL-005', 'ALB-007', 'Steel Strings', 'Steel Strings', '00:03:30', 'Krauss', '14:15:00'),
-#
-# -- Playlist 6
-# ('PL-006', 'ALB-008', 'Dust Bowl Diaries', 'Dust Bowl Dreams', '00:04:10', 'Rimes', '15:00:00'),
-#
-# -- Playlist 7
-# ('PL-007', 'ALB-009', 'Neon Honky Tonk', 'Honky Tonk Heart', '00:03:55', 'Brooks', '16:20:00'),
-#
-# -- Playlist 8
-# ('PL-008', 'ALB-010', 'Moonshine Lullabies', 'Moonshine Lullaby', '00:04:00', 'Cam', '17:00:00'),
-#
-# -- Playlist 9
-# ('PL-009', 'ALB-006', 'Gravel and Grace', 'Graceful Nights', '00:04:20', 'Kristofferson', '18:00:00'),
-#
-# -- Playlist 10
-# ('PL-010', 'ALB-006', 'Gravel and Grace', 'Graceful Nights', '00:03:50', 'Musgraves', '19:00:00');
+-- 3. PAYMENTS
+-- Sum of items must match the amount here
+INSERT INTO payment (order_id, amount, paid_at, method, payment_status, currency)
+VALUES ('ord_101', 14.99, '2023-10-01 10:00:00', 'CREDIT_CARD', 'COMPLETED', 'USD'),
+       ('ord_102', 4.99, '2023-10-02 11:30:00', 'PAYPAL', 'COMPLETED', 'USD'),
+       ('ord_103', 25.00, NULL, 'STRIPE', 'PENDING', 'USD'),
+       ('ord_104', 19.99, '2023-10-04 09:15:00', 'CREDIT_CARD', 'COMPLETED', 'USD'), -- (14.99 + 5.00)
+       ('ord_105', 12.99, NULL, 'CREDIT_CARD', 'FAILED', 'USD'),
+       ('ord_106', 4.99, '2023-10-06 14:00:00', 'PAYPAL', 'COMPLETED', 'USD'),
+       ('ord_107', 14.99, NULL, 'STRIPE', 'PENDING', 'USD'),
+       ('ord_108', 10.00, '2023-10-08 16:45:00', 'CREDIT_CARD', 'COMPLETED', 'USD'),
+       ('ord_109', 14.99, '2023-10-09 12:00:00', 'STRIPE', 'COMPLETED', 'USD'),
+       ('ord_110', 0.00, '2023-10-10 08:00:00', 'CREDIT_CARD', 'COMPLETED', 'USD');

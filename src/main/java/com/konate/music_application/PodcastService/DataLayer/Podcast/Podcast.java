@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
-@Table(name = "Podcast")
+@Table(name = "podcast")
 @Data
 @NoArgsConstructor
 public class Podcast {

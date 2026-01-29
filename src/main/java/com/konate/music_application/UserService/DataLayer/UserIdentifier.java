@@ -13,7 +13,7 @@ public class UserIdentifier {
     private String userId;
 
     public UserIdentifier() {
-        this.userId = UUID.randomUUID().toString();
+        this.userId = "user-" + UUID.randomUUID().toString();
     }
 
     public UserIdentifier(String userId) {

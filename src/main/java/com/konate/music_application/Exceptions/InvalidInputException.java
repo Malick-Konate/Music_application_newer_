@@ -1,4 +1,4 @@
-package com.konate.music_application.UserService.Exceptions;
+package com.konate.music_application.Exceptions;
 
 public class InvalidInputException extends RuntimeException {
     public InvalidInputException(String message) {
