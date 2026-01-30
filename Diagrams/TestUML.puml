@@ -292,7 +292,7 @@ ENUM(GenreEnum) {
     }
     AdCampaign --> AdCreative
     AdCampaign --> TargetingRules
-    AdCampaign --> CreativeType
+    AdCreative --> CreativeType
     AdCampaign --> CampaignStatus
     TargetingRules --> GenreEnum
     TargetingRules --> Region
