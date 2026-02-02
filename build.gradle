@@ -2,12 +2,15 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.4'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'jacoco'
 }
-
 group = 'com.Konate'
 version = '0.0.1-SNAPSHOT'
 description = 'Music_application'
 
+jacoco {
+    toolVersion = "0.8.11"
+}
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
@@ -18,6 +21,11 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+}
+ext {
+    mapstructVersion = "1.6.3"
+    lombokVersion = "1.18.36"
+    lombokMapstructBindingVersion = "0.2.0"
 }
 
 repositories {
@@ -49,8 +57,43 @@ dependencies {
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}", "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
+
+
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+
+jacocoTestReport {
+    dependsOn test
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+//"com/movielister/**/MovieDetailsServiceApplication.class",
+// "**/*MapperImpl.class"
+            ])
+        }))
+    }
+}
+
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.00
+            }
+        }
+    }
+}
+test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }

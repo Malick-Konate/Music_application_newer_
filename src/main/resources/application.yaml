@@ -13,6 +13,10 @@ logging:
 ---
 
 ##for h2
+
+
+
+
 #spring:
 #  config:
 #    activate:
@@ -73,3 +77,27 @@ spring:
 server.port: 8080
 
 spring.datasource.hikari.initializationFailTimeout: 60000
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+  sql:
+    init:
+      mode: never

@@ -18,6 +18,7 @@ import com.konate.music_application.UserService.BusinessLayer.UserService;
 import com.konate.music_application.UserService.DataLayer.User;
 import com.konate.music_application.UserService.DataLayer.UserIdentifier;
 import com.konate.music_application.UserService.PresentationLayer.UserResponseModel;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -118,6 +119,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
+    @Transactional
     public OrderResponseModel createOrder(OrderRequestModel requestModel) {
         if (requestModel == null)
             throw new InvalidInputException("The request cannot be null.");
@@ -222,6 +224,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public OrderResponseModel updateOrder(String orderId, OrderRequestModel requestModel) {
         // 1. Find the existing order
         Order existingOrder = repository.findAllByOrderIdentifier_OrderId(orderId);

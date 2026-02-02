@@ -129,3 +129,66 @@ CREATE TABLE payment
     currency       VARCHAR(10),
     CONSTRAINT fk_payment_order FOREIGN KEY (order_id) REFERENCES `orders` (order_id) ON DELETE CASCADE
 );
+
+DROP TABLE IF EXISTS targeting_rules;
+DROP TABLE IF EXISTS ad_creatives;
+DROP TABLE IF EXISTS ad_campaigns;
+
+CREATE TABLE ad_campaigns
+(
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+
+    ad_id           VARCHAR(255)                                    NOT NULL UNIQUE,
+
+    user_id         VARCHAR(100)                                    NOT NULL,
+
+    target_type     ENUM ('ARTIST', 'PODCAST')                      NOT NULL,
+    target_id       VARCHAR(255)                                    NOT NULL,
+
+    name            VARCHAR(255)                                    NOT NULL,
+
+    budget          DECIMAL(19, 2)                                  NOT NULL,
+    remaining_spend DECIMAL(19, 2)                                  NOT NULL,
+
+    status          ENUM ('DRAFT', 'ACTIVE', 'PAUSED', 'EXHAUSTED') NOT NULL
+);
+
+CREATE TABLE ad_creatives
+(
+    ad_id         VARCHAR(255) NOT NULL,
+    media_url     VARCHAR(500),
+    creative_type ENUM ('AUDIO_CLIP', 'BANNER_IMAGE', 'VIDEO_SPOT'),
+
+    CONSTRAINT fk_creative_ad
+        FOREIGN KEY (ad_id) REFERENCES ad_campaigns (ad_id)
+            ON DELETE CASCADE
+);
+
+CREATE TABLE targeting_rules
+(
+    ad_id         VARCHAR(255) NOT NULL,
+
+    target_genre  ENUM (
+        'BLUEGRASS',
+        'HONKY_TONK',
+        'OUTLAW',
+        'COUNTRY_POP',
+        'ALTERNATIVE_COUNTRY',
+        'CANADIAN_COUNTRY',
+        'COUNTRY_POLITAN'
+        ),
+
+    target_region ENUM (
+        'GLOBAL',
+        'NORTH_AMERICA',
+        'EUROPE',
+        'ASIA',
+        'LATAM'
+        ),
+
+    min_age       INT,
+
+    CONSTRAINT fk_targeting_ad
+        FOREIGN KEY (ad_id) REFERENCES ad_campaigns (ad_id)
+            ON DELETE CASCADE
+);

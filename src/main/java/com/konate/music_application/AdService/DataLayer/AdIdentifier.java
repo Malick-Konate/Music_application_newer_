@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 public class AdIdentifier {
 
-    @Column(name = "ad_id")
+    @Column(name = "ad_id", unique = true)
     private String adId;
 
     public AdIdentifier(String adId) {

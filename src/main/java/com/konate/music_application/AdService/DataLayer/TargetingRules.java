@@ -13,25 +13,25 @@ import java.util.List;
 public class TargetingRules {
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "target_genres")
-    private List<GenreEnum> targetGenres;
+    @Column(name = "target_genre")
+    private GenreEnum targetGenre;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "target_regions")
-    private List<Region> targetRegions;
+    @Column(name = "target_region")
+    private Region targetRegion;
 
     @Column(name = "min_age")
     private Integer minAge;
 
-    public TargetingRules(List<GenreEnum> targetGenres, List<Region> targetRegions, Integer minAge) {
-        this.targetGenres = targetGenres;
-        this.targetRegions = targetRegions;
+    public TargetingRules(GenreEnum targetGenres, Region targetRegions, Integer minAge) {
+        this.targetGenre = targetGenres;
+        this.targetRegion = targetRegions;
         this.minAge = minAge;
     }
 
     public TargetingRules() {
-        this.targetGenres = null;
-        this.targetRegions = null;
+        this.targetGenre = null;
+        this.targetRegion = null;
         this.minAge = null;
     }
 

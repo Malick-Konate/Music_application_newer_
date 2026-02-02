@@ -41,6 +41,21 @@ public class GlobalControllerExceptionHandler {
         return createHttpErrorInfo(CONFLICT, request, ex);
     }
 
+    @ResponseStatus(UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(InvalidAdTargetException.class)
+    public HttpErrorInfo handleInvalidAdTargetException(WebRequest request, Exception ex) {
+        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
+    }
+
+
+    @ResponseStatus(UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(InvalidCampaignStateException.class)
+    public HttpErrorInfo handleInvalidCampaignStateException(WebRequest request, Exception ex) {
+        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
+    }
+
+
+
 //    @ResponseStatus(UNPROCESSABLE_ENTITY)
 //    @ExceptionHandler(DuplicateVinException.class)
 //    public HttpErrorInfo handleDuplicateVinException(WebRequest request, Exception ex) {

@@ -9,7 +9,7 @@ import static java.util.UUID.randomUUID;
 @Embeddable
 @Getter
 public class OrderIdentifier {
-    @Column(name = "order_id")
+    @Column(name = "order_id", unique = true)
     private String orderId;
 
     public OrderIdentifier(){
