@@ -211,6 +211,7 @@ public class OrderServiceImpl implements OrderService {
         OrderResponseModel response = responseMapper.toRespondModel(savedOrder);
         response.setFullname(user.getFullname());
         response.setEmail(user.getEmail());
+        response.setCountry(user.getCountry());
 
         return response;
     }

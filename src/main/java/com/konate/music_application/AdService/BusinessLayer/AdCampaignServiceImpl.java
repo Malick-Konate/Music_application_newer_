@@ -9,13 +9,11 @@ import com.konate.music_application.AdService.PresentationLayer.AdResponseModel;
 import com.konate.music_application.ArtistService.BusinessLayer.ArtistService;
 import com.konate.music_application.ArtistService.Presentation.ArtistResponseModel;
 import com.konate.music_application.Exceptions.InvalidAdTargetException;
-import com.konate.music_application.Exceptions.InvalidCampaignStateException;
 import com.konate.music_application.Exceptions.InvalidInputException;
 import com.konate.music_application.Exceptions.NotFoundException;
 import com.konate.music_application.PodcastService.BusinessLayer.Podcast.PodcastService;
 import com.konate.music_application.PodcastService.PresentationLayer.Podcast.PodcastResponseModel;
 import com.konate.music_application.UserService.BusinessLayer.UserService;
-import com.konate.music_application.UserService.DataLayer.User;
 import com.konate.music_application.UserService.DataLayer.UserIdentifier;
 import com.konate.music_application.UserService.PresentationLayer.UserResponseModel;
 import jakarta.transaction.Transactional;
@@ -88,6 +86,8 @@ public class AdCampaignServiceImpl implements AdCampaignService {
         if (adRequestModel.getBudget().compareTo(BigDecimal.ZERO) <= 0) {
             throw new InvalidInputException("Campaign budget must be greater than zero.");
         }
+//        if (adRequestModel.getBudget().compareTo( adRequestModel.getRemainingSpend()))
+//            throw new InvalidInputException("Sorry but the budget must be greater than the remaining budget.");
 
         AdCampaign newAd = requestMapper.toAdCampaign(
                 adRequestModel,

@@ -3,8 +3,6 @@ package com.konate.music_application.AdService.MappingLayer;
 import com.konate.music_application.AdService.DataLayer.AdCampaign;
 import com.konate.music_application.AdService.DataLayer.AdIdentifier;
 import com.konate.music_application.AdService.PresentationLayer.AdRequestModel;
-import com.konate.music_application.ArtistService.dataLayer.ArtistIdentifier;
-import com.konate.music_application.PodcastService.DataLayer.Podcast.PodcastIdentifier;
 import com.konate.music_application.UserService.DataLayer.UserIdentifier;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

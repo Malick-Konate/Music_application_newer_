@@ -1,8 +1,6 @@
 package com.konate.music_application.AdService.DataLayer;
 
-import com.konate.music_application.ArtistService.dataLayer.ArtistIdentifier;
 import com.konate.music_application.Exceptions.InvalidCampaignStateException;
-import com.konate.music_application.PodcastService.DataLayer.Podcast.PodcastIdentifier;
 import com.konate.music_application.UserService.DataLayer.UserIdentifier;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

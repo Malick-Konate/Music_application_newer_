@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserResponseMapper userResponseMapper;
@@ -45,14 +45,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteUser(String username) {
         User user = userRepository.findByUsername(username);
-        // Check if the user exists
-        if (user != null) {
-            // Delete the user from the repository
-            userRepository.delete(user);
-        } else {
-            // Handle the case where the user does not exist, e.g., throw an exception or log a message
-            throw new RuntimeException("User not found: " + username);
+
+        if (user == null) {
+            throw new NotFoundException("User not found: " + username);
         }
+        userRepository.delete(user);
     }
 
     @Override
@@ -110,7 +107,8 @@ public class UserServiceImpl implements UserService{
         } else {
             // Handle the case where the user does not exist, e.g., throw an exception or log a message
             throw new NotFoundException("User not found: " + username);
-        }    }
+        }
+    }
 
     @Override
     public UserResponseModel getUserByEmail(String email) {

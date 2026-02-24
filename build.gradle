@@ -58,6 +58,7 @@ dependencies {
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
 
+    testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
 
 }
 

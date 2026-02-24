@@ -9,7 +9,19 @@ VALUES ('ART-001', 'Johnny', 'Cash', 'An iconic country music singer.'),
        ('ART-007', 'Chris', 'Stapleton', 'A modern-day soulful country singer.'),
        ('ART-008', 'Kacey', 'Musgraves', 'Blends traditional and progressive country.'),
        ('ART-009', 'Luke', 'Combs', 'Known for chart-topping hits and deep voice.'),
-       ('ART-010', 'Carrie', 'Underwood', 'American Idol winner turned country star.');
+       ('ART-010', 'Carrie', 'Underwood', 'American Idol winner turned country star.'),
+       ('ART-011', 'Alana', 'Springsteen',
+        'An American country-pop artist known for emotional storytelling and modern country production.'),
+       ('ART-012', 'Megan', 'Patrick',
+        'A Canadian country singer blending traditional country with modern influences.'),
+       ('ART-013', 'Robyn', 'Ottolini',
+        'A Canadian country artist recognized for honest lyrics and viral country hits.'),
+       ('ART-014', 'The', 'Reklaws',
+        'A Canadian country sibling duo known for energetic performances and chart-topping hits.'),
+       ('ART-015', 'Madeline', 'Merlo',
+        'A Canadian country-pop artist known for heartfelt lyrics and modern production.'),
+       ('ART-016', 'MacKenzie', 'Porter',
+        'A Canadian country singer-songwriter with strong success in both Canada and the United States.');
 
 -- Genres
 INSERT INTO artist_genre (artist_id, genre)
@@ -25,7 +37,19 @@ VALUES ('ART-001', 'Outlaw Country'),
        ('ART-008', 'Alternative Country'),
        ('ART-009', 'Bro-Country'),
        ('ART-010', 'Country Pop'),
-       ('ART-010', 'Christian Country');
+       ('ART-010', 'Christian Country'),
+       ('ART-011', 'Country Pop'),
+       ('ART-011', 'Contemporary Country'),
+       ('ART-012', 'Contemporary Country'),
+       ('ART-012', 'Country Rock'),
+       ('ART-013', 'Country Pop'),
+       ('ART-013', 'Contemporary Country'),
+       ('ART-014', 'Contemporary Country'),
+       ('ART-014', 'Country Pop'),
+       ('ART-015', 'Country Pop'),
+       ('ART-015', 'Contemporary Country'),
+       ('ART-016', 'Country Pop'),
+       ('ART-016', 'Contemporary Country');
 
 -- Social Media Links
 INSERT INTO artist_social_media_links (artist_id, platform, uri)
@@ -39,7 +63,19 @@ VALUES ('ART-001', 'Twitter', 'https://twitter.com/johnnycash'),
        ('ART-007', 'Twitter', 'https://twitter.com/chrisstapleton'),
        ('ART-008', 'Instagram', 'https://instagram.com/spaceykacey'),
        ('ART-009', 'TikTok', 'https://tiktok.com/@lukecombs'),
-       ('ART-010', 'Facebook', 'https://facebook.com/carrieunderwood');
+       ('ART-010', 'Facebook', 'https://facebook.com/carrieunderwood'),
+       ('ART-011', 'Instagram', 'https://instagram.com/alanaspringsteen'),
+       ('ART-011', 'TikTok', 'https://tiktok.com/@alanaspringsteen'),
+       ('ART-012', 'Instagram', 'https://instagram.com/meganpatrickmusic'),
+       ('ART-012', 'Facebook', 'https://facebook.com/meganpatrickmusic'),
+       ('ART-013', 'Instagram', 'https://instagram.com/robynottolini'),
+       ('ART-013', 'TikTok', 'https://tiktok.com/@robynottolini'),
+       ('ART-014', 'Instagram', 'https://instagram.com/thereklaws'),
+       ('ART-014', 'TikTok', 'https://tiktok.com/@thereklaws'),
+       ('ART-015', 'Instagram', 'https://instagram.com/madelinemerlo'),
+       ('ART-015', 'Facebook', 'https://facebook.com/madelinemerlo'),
+       ('ART-016', 'Instagram', 'https://instagram.com/mackenziepmusic'),
+       ('ART-016', 'TikTok', 'https://tiktok.com/@mackenzieporter');
 
 INSERT INTO album (album_id, artist_id, title, release_date, record_label, album_type)
 VALUES ('ALB-001', 'ART-001', 'Whiskey Roads', '2021-03-15', 'Lone Star Records', 'LP'),
@@ -51,7 +87,23 @@ VALUES ('ALB-001', 'ART-001', 'Whiskey Roads', '2021-03-15', 'Lone Star Records'
        ('ALB-007', 'ART-007', 'Steel Strings', '2020-12-24', 'Outlaw Harmony', 'EP'),
        ('ALB-008', 'ART-008', 'Dust Bowl Diaries', '2021-05-30', 'Ramblin’ Soul', 'SINGLE'),
        ('ALB-009', 'ART-009', 'Neon Honky Tonk', '2018-08-19', 'Blue Ridge Beats', 'LP'),
-       ('ALB-010', 'ART-010', 'Moonshine Lullabies', '2023-03-03', 'Wild West Vibes', 'EP');
+       ('ALB-010', 'ART-010', 'Moonshine Lullabies', '2023-03-03', 'Wild West Vibes', 'EP'),
+       -- Alana Springsteen
+       ('ALB-011', 'ART-011', 'TWENTY SOMETHING', '2023-05-05', 'Columbia Records', 'LP'),
+
+-- Megan Patrick
+       ('ALB-012', 'ART-012', 'Greatest Show on Dirt', '2024-03-15', 'Riser House Records', 'LP'),
+
+-- Robyn Ottolini
+       ('ALB-013', 'ART-013', 'Growing Up to Do', '2023-09-22', 'Warner Music Canada', 'LP'),
+       -- The Reklaws
+       ('ALB-014', 'ART-014', 'Good Ol’ Days', '2022-11-04', 'Universal Music Canada', 'LP'),
+
+-- Madeline Merlo
+       ('ALB-015', 'ART-015', 'Slide', '2023-03-10', 'Open Road Recordings', 'EP'),
+
+-- MacKenzie Porter
+       ('ALB-016', 'ART-016', 'Nobody’s Born With a Broken Heart', '2022-04-08', 'Big Loud Records', 'LP');
 
 
 
@@ -90,22 +142,31 @@ VALUES
 ('ALB-009', 'Honky Tonk Heart', '00:03:30', 'Lyrics for Honky Tonk Heart...'),
 
 -- Songs for Carrie Underwood's "Moonshine Lullabies"
-('ALB-010', 'Moonshine Lullaby', '00:03:45', 'Lyrics for Moonshine Lullaby...');
+('ALB-010', 'Moonshine Lullaby', '00:03:45', 'Lyrics for Moonshine Lullaby...'),
+-- Alana Springsteen - TWENTY SOMETHING
+('ALB-011', 'goodbye looks good on you', '00:03:12', 'Lyrics for goodbye looks good on you...'),
+('ALB-011', 'you don’t deserve a country song', '00:03:08', 'Lyrics for you don’t deserve a country song...'),
+('ALB-011', 'ghost in my guitar', '00:03:30', 'Lyrics for ghost in my guitar...'),
 
+-- Megan Patrick - Greatest Show on Dirt
+('ALB-012', 'Greatest Show on Dirt', '00:03:25', 'Lyrics for Greatest Show on Dirt...'),
+('ALB-012', 'She’s No Good for Me', '00:03:18', 'Lyrics for She’s No Good for Me...'),
 
+-- Robyn Ottolini - Growing Up to Do
+('ALB-013', 'F-150', '00:03:22', 'Lyrics for F-150...'),
+('ALB-013', 'Say It', '00:03:05', 'Lyrics for Say It...'),
+-- The Reklaws - Good Ol’ Days
+('ALB-014', 'Good Ol’ Days', '00:03:12', 'Lyrics for Good Ol’ Days...'),
+('ALB-014', 'What the Truck', '00:02:55', 'Lyrics for What the Truck...'),
 
-# INSERT INTO users (user_id, username, password, email, fullname, country, age)
-# VALUES ('USR-001', 'nroos', 'hashed_pw_001', 'Nathan.Roos@example.com', 'Nathan Roos', 'Canada', 19),
-#        ('USR-002', 'jroos', 'hashed_pw_002', 'Jeremy.Roos@example.com', 'Jeremy Roos', 'Canada', 19),
-#        ('USR-003', 'iwallace', 'hashed_pw_003', 'Isaac.Wallace@example.com', 'Isaac Wallace', 'Canada', 21),
-#        ('USR-004', 'nkonate', 'hashed_pw_004', 'Naima.Konate@example.com', 'Naima Konate', 'Canada', 16),
-#        ('USR-005', 'Bwood', 'hashed_pw_005', 'Brendon.Wood@example.com', 'Brendon Wood', 'USA', 40),
-#        ('USR-006', 'cgerald', 'hashed_pw_006', 'Christine.Gerald@example.com', 'Christine Gerald', 'United Kingdom',
-#         35),
-#        ('USR-007', 'mkonate', 'hashed_pw_007', 'Malick.Konate@example.com', 'Malick Konate', 'Canada', 22),
-#        ('USR-008', 'hnguyen', 'hashed_pw_008', 'Hannah.Nguyen@example.com', 'Hannah Nguyen', 'USA', 25),
-#        ('USR-009', 'jmiller', 'hashed_pw_009', 'Julia.Miller@example.com', 'Julia Miller', 'USA', 49),
-#        ('USR-010', 'ebrown', 'hashed_pw_010', 'Ella.Brown@email.com', 'Ella Brown', 'USA', 17);
+-- Madeline Merlo - Slide
+('ALB-015', 'Slide', '00:03:05', 'Lyrics for Slide...'),
+('ALB-015', 'Same Car', '00:03:18', 'Lyrics for Same Car...'),
+
+-- MacKenzie Porter - Nobody’s Born With a Broken Heart
+('ALB-016', 'Pickup', '00:03:22', 'Lyrics for Pickup...'),
+('ALB-016', 'These Days', '00:03:30', 'Lyrics for These Days...');
+
 
 
 INSERT INTO users (user_id, username, password, email, fullname, country, age)
@@ -115,7 +176,11 @@ VALUES ('user-001', 'malick', 'hashed_pwd_1', 'malick@email.com', 'Malick Konate
        ('user-004', 'fatima', 'hashed_pwd_4', 'fatima@email.com', 'Fatima Noor', 'UK', 27),
        ('user-005', 'alexm', 'hashed_pwd_5', 'alex@email.com', 'Alex Martin', 'Germany', 35),
        ('user-006', 'ebrown', 'hashed_pw_010', 'Ella.Brown@email.com', 'Ella Brown', 'USA', 17),
-       ('user-007', 'cgerald', 'hashed_pw_006', 'Christine.Gerald@email.com', 'Christine Gerald', 'UK', 35);
+       ('user-007', 'cgerald', 'hashed_pw_006', 'Christine.Gerald@email.com', 'Christine Gerald', 'UK', 35),
+       ('user-008', 'jroos', 'hashed_pw_006', 'Jeremy.Roos@email.com', 'Jeremy Roos', 'Italia', 20),
+       ('user-009', 'nroos', 'hashed_pw_006', 'Nathan.Roos@email.com', 'Nathan Roos', 'Brasil', 20),
+       ('user-010', 'mphillip-poulin', 'hashed_pw_006', 'Marie.Phillip-Poulin@email.com', 'Marie Phillip-Poulin', 'UK',
+        30);
 
 -- --------------------------------------------------------
 -- DATA FOR TABLE: podcast
@@ -152,7 +217,15 @@ VALUES ('pod_country_001', 'Honky Tonk History', 'Clint Blackman',
        ('pod_country_014', 'Gospel Country Sunday', 'Reverend Cash',
         'Uplifting country gospel music for your Sunday morning.', 'FREE'),
        ('pod_country_015', 'Steel Guitar Secrets', 'Paul Franklin Fan',
-        'Technical deep dives into pedal steel guitar mechanics and playing styles.', 'SUBSCRIPTION');
+        'Technical deep dives into pedal steel guitar mechanics and playing styles.', 'SUBSCRIPTION'),
+       ('pod_country_016', 'Canadian Country Spotlight', 'Northern Nashville',
+        'Highlighting the biggest names and rising stars in Canadian country music.', 'FREE'),
+
+       ('pod_country_017', 'Country Song Breakdown', 'Studio Session Sam',
+        'Breaking down the production, lyrics, and songwriting techniques behind today’s biggest country hits.', 'SUBSCRIPTION'),
+
+       ('pod_country_018', 'Backstage at the Opry', 'Southern Stage Mike',
+        'Exclusive backstage-style storytelling from legendary country venues and festivals.', 'PER_EPISODE');
 -- --------------------------------------------------------
 -- DATA FOR TABLE: episode
 -- Theme: Country Music Deep Dives
@@ -241,7 +314,32 @@ VALUES
 ('ep_049', 'pod_country_015', 'Pedal Steel Maintenance 101', '00:28:00', '2023-10-30', 'PUBLISHED'),
 ('ep_050', 'pod_country_015', 'The C6 vs E9 Tuning Explained', '01:05:00', '2023-11-06', 'PUBLISHED'),
 ('ep_051', 'pod_country_015', 'How to Play a Cryin Steel Lick', '00:40:00', '2023-11-13', 'PUBLISHED'),
-('ep_052', 'pod_country_015', 'Interview: Modern Steel Legend Buddy Emmons', '01:20:00', '2023-11-20', 'PUBLISHED');
+('ep_052', 'pod_country_015', 'Interview: Modern Steel Legend Buddy Emmons', '01:20:00', '2023-11-20', 'PUBLISHED'), -- --------------------------------------------------------
+-- pod_country_016 (Canadian Country Spotlight)
+-- --------------------------------------------------------
+('ep_053', 'pod_country_016', 'The Rise of MacKenzie Porter', '00:42:00', '2024-02-01', 'PUBLISHED'),
+('ep_054', 'pod_country_016', 'The Reklaws and the New Party Country Wave', '00:38:00', '2024-02-08', 'PUBLISHED'),
+('ep_055', 'pod_country_016', 'Madeline Merlo: From BC to Nashville', '00:35:00', '2024-02-15', 'PUBLISHED'),
+('ep_056', 'pod_country_016', 'Top 10 Canadian Country Songs of 2024', '00:50:00', '2024-02-22', 'PUBLISHED'),
+('ep_057', 'pod_country_016', 'How Canada Shapes Modern Country Music', '00:45:00', '2024-03-01', 'PUBLISHED'),
+
+-- --------------------------------------------------------
+-- pod_country_017 (Country Song Breakdown)
+-- --------------------------------------------------------
+('ep_058', 'pod_country_017', 'Inside the Production of a Luke Combs Hit', '00:55:00', '2024-03-05', 'PUBLISHED'),
+('ep_059', 'pod_country_017', 'The Secret Formula of Country-Pop Hooks', '00:48:00', '2024-03-12', 'PUBLISHED'),
+('ep_060', 'pod_country_017', 'Writing the Perfect Country Love Song', '00:40:00', '2024-03-19', 'PUBLISHED'),
+('ep_061', 'pod_country_017', 'Acoustic vs. Full Band: Arrangement Choices', '00:46:00', '2024-03-26', 'PUBLISHED'),
+('ep_062', 'pod_country_017', 'Why Storytelling Still Wins in 2024', '00:52:00', '2024-04-02', 'PUBLISHED'),
+
+-- --------------------------------------------------------
+-- pod_country_018 (Backstage at the Opry)
+-- --------------------------------------------------------
+('ep_063', 'pod_country_018', 'Behind the Curtains of the Grand Ole Opry', '01:05:00', '2024-04-10', 'PUBLISHED'),
+('ep_064', 'pod_country_018', 'Stage Fright: Confessions from Touring Artists', '00:50:00', '2024-04-17', 'PUBLISHED'),
+('ep_065', 'pod_country_018', 'Festival Life: CMA Fest Stories', '00:45:00', '2024-04-24', 'PUBLISHED'),
+('ep_066', 'pod_country_018', 'Soundcheck Secrets from Nashville Studios', '00:38:00', '2024-05-01', 'PUBLISHED'),
+('ep_067', 'pod_country_018', 'The Evolution of Live Country Performances', '00:55:00', '2024-05-08', 'PUBLISHED');
 
 
 -- 10 ORDERS

@@ -55,7 +55,7 @@ User --> UserIdentifier
 ' -------------------------------------------
 ' 2. ARTIST SERVICE
 ' -------------------------------------------
-package "Artist management Sub-Domain" as ArtistService <<Rectangle>> #Orange{
+package "Artist&Talent management Sub-Domain" as ArtistService <<Rectangle>> #Orange{
     ENTITY(Artist) #lightpink{
         + artistId: UUID
         + name: String
