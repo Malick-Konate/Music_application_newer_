@@ -19,7 +19,7 @@ public class ArtistController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ArtistResponseModel>> getAllArtists() {
+    public ResponseEntity<List<com.konate.music_application.ArtistService.Presentation.ArtistResponseModel>> getAllArtists() {
         return new ResponseEntity<>(artistService.getAllArtists(), HttpStatus.OK);
     }
 
