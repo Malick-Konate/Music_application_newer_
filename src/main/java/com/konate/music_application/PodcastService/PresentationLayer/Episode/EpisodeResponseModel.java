@@ -15,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class EpisodeResponseModel extends RepresentationModel<AlbumResponseModel> {
     String episodeId;
+    String hostname;
     String episodeTitle;
     Time duration;
     Date publishDate;

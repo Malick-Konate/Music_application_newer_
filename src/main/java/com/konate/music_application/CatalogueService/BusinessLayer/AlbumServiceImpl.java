@@ -123,6 +123,7 @@ public class AlbumServiceImpl implements AlbumService {
         existingAlbum.setAlbumType(album.getAlbumType());
         existingAlbum.setReleaseDate(album.getReleaseDate());
         existingAlbum.setRecordLabel(album.getRecordLabel());
+        existingAlbum.setSong(album.getSong());
         existingAlbum.setArtistIdentifier(new ArtistIdentifier(album.getArtistId()));
 
         Album savedAlbum = albumRepository.save(existingAlbum);
