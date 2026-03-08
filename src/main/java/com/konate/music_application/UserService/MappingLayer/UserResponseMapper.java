@@ -40,7 +40,9 @@ public interface UserResponseMapper {
         Link selfLink = linkTo(methodOn(UserController.class)
                 .getUserByUsername(userResponseModel.getUsername()))
                 .withSelfRel();
-        userResponseModel.add(selfLink);
+        Link all = linkTo(methodOn(UserController.class).getAllUsers()).withRel("all users");
+        Link delete = linkTo(methodOn(UserController.class).deleteUser(userResponseModel.getUsername())).withRel("delete");
+        userResponseModel.add(selfLink, all, delete);
     }
 
 }

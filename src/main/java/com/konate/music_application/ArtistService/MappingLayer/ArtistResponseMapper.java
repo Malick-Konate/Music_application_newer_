@@ -32,7 +32,12 @@ public interface ArtistResponseMapper {
         Link selfLink = linkTo(methodOn(ArtistController.class)
                 .getArtistById(artistResponseModel.getArtistIdentifier()))
                 .withSelfRel();
-        artistResponseModel.add(selfLink);
+        Link allLinks = linkTo(methodOn(ArtistController.class).getAllArtists()).withRel("artists");
+
+        Link deleteLink = linkTo(methodOn(ArtistController.class)
+                .deleteArtist(artistResponseModel.getArtistIdentifier())).withRel("delete");
+
+        artistResponseModel.add(selfLink, allLinks, deleteLink);
 
 //        Link allArtistsLink = linkTo(methodOn(ArtistController.class)
 //                .getAllArtists(new HashMap<>()))

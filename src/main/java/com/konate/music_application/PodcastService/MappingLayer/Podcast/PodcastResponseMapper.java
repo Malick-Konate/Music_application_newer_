@@ -25,11 +25,13 @@ public interface PodcastResponseMapper {
     List<PodcastResponseModel> entityListToResponseModelList(List<Podcast> podcasts);
 
     @AfterMapping
-    default void addLinks(PodcastResponseModel responseModel, @MappingTarget Podcast podcast){
+    default void addLinks(@MappingTarget PodcastResponseModel responseModel, Podcast podcast){
         Link selfLink = linkTo(methodOn(PodcastController.class)
                 .getPodcastById(podcast.getPodcastIdentifier().getPodcastId()))
                 .withSelfRel();
-        responseModel.add(selfLink);
+        Link allLink = linkTo(methodOn(PodcastController.class).getAllPodcast()).withRel("all podcasts");
+        Link delete = linkTo(methodOn(PodcastController.class).deletePodcast(podcast.getPodcastIdentifier().getPodcastId())).withRel("delete");
+        responseModel.add(selfLink, allLink, delete);
     }
 
 }

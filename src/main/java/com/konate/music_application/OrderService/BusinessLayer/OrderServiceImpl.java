@@ -1,5 +1,7 @@
 package com.konate.music_application.OrderService.BusinessLayer;
 
+import com.konate.music_application.ArtistService.BusinessLayer.ArtistService;
+import com.konate.music_application.ArtistService.Presentation.ArtistResponseModel;
 import com.konate.music_application.CatalogueService.BusinessLayer.AlbumService;
 import com.konate.music_application.CatalogueService.PresentationLayer.AlbumResponseModel;
 import com.konate.music_application.Exceptions.InvalidInputException;
@@ -37,13 +39,16 @@ public class OrderServiceImpl implements OrderService {
     private final PodcastService podcastService;
     private final AlbumService albumService;
 
-    public OrderServiceImpl(OrderRepository repository, OrderRequestMapper requestMapper, OrderResponseMapper responseMapper, UserService userService, PodcastService podcastService, AlbumService albumService) {
+    private final ArtistService artistService;
+
+    public OrderServiceImpl(OrderRepository repository, OrderRequestMapper requestMapper, OrderResponseMapper responseMapper, UserService userService, PodcastService podcastService, AlbumService albumService, ArtistService artistService) {
         this.repository = repository;
         this.requestMapper = requestMapper;
         this.responseMapper = responseMapper;
         this.userService = userService;
         this.podcastService = podcastService;
         this.albumService = albumService;
+        this.artistService = artistService;
     }
 
     @Override
@@ -59,8 +64,9 @@ public class OrderServiceImpl implements OrderService {
             orderResponseModel.setCountry(user.getCountry());
             orderResponseModel.setEmail(user.getEmail());
 
-            orderResponseModel.add(linkTo(methodOn(OrderController.class)
-                    .getOrderById(order.getOrderIdentifier().getOrderId())).withSelfRel());
+//            orderResponseModel.add(linkTo(methodOn(OrderController.class)
+//                    .getOrderById(order.getOrderIdentifier().getOrderId())).withSelfRel());
+//            orderResponseModel.add(linkTo(methodOn()))
             responseModels.add(orderResponseModel);
         }
 
@@ -80,8 +86,8 @@ public class OrderServiceImpl implements OrderService {
         orderResponseModel.setCountry(user.getCountry());
         orderResponseModel.setEmail(user.getEmail());
 
-        orderResponseModel.add(linkTo(methodOn(OrderController.class)
-                .getOrderById(order.getOrderIdentifier().getOrderId())).withSelfRel());
+//        orderResponseModel.add(linkTo(methodOn(OrderController.class)
+//                .getOrderById(order.getOrderIdentifier().getOrderId())).withSelfRel());
         return orderResponseModel;
     }
 
@@ -99,8 +105,8 @@ public class OrderServiceImpl implements OrderService {
             orderResponseModel.setCountry(user.getCountry());
             orderResponseModel.setEmail(user.getEmail());
 
-            orderResponseModel.add(linkTo(methodOn(OrderController.class)
-                    .getOrderById(order.getOrderIdentifier().getOrderId())).withSelfRel());
+//            orderResponseModel.add(linkTo(methodOn(OrderController.class)
+//                    .getOrderById(order.getOrderIdentifier().getOrderId())).withSelfRel());
             responseModels.add(orderResponseModel);
         }
 
@@ -139,6 +145,8 @@ public class OrderServiceImpl implements OrderService {
             if (item.getProductType() == ProductType.ALBUM_PURCHASE) {
                 // Use the ID from the request to fetch the real album data
                 AlbumResponseModel album = albumService.getAlbumByTitle(item.getDisplayName());
+//                if (album == null)
+//                    throw new NotFoundException("Album not found");
                 BigDecimal albumPrice = new BigDecimal("14.99");
 
                 hydratedItem = new OrderItem(
@@ -152,6 +160,9 @@ public class OrderServiceImpl implements OrderService {
 
 
                 PodcastResponseModel podcast = podcastService.getPodcastByTitle(item.getDisplayName());
+//                if (podcast == null)
+//                    throw new NotFoundException("Podcast not found");
+
                 BigDecimal podcastPrice = determinePodcastPrice(podcast);
 
                 hydratedItem = new OrderItem(
@@ -162,10 +173,14 @@ public class OrderServiceImpl implements OrderService {
                         item.getQuantity()
                 );
             } else if (item.getProductType() == ProductType.ARTIST_DONATION) {
+                String fullName = item.getArtistName();
+                String[] nameParts = fullName.split(" ");
+                String lastName = nameParts[nameParts.length - 1];
+                ArtistResponseModel artist = artistService.getArtistByLastName(lastName);
                 hydratedItem = new OrderItem(
                         ProductType.ARTIST_DONATION,
                         "Artist Support Donation",
-                        item.getArtistName(),
+                        artist.getFirstName() + " " + artist.getLastName(),
                         item.getPrice(), // User defined amount
                         1
                 );
@@ -267,9 +282,10 @@ public class OrderServiceImpl implements OrderService {
         OrderResponseModel response = responseMapper.toRespondModel(updatedOrder);
         response.setFullname(user.getFullname());
         response.setEmail(user.getEmail());
+        response.setCountry(user.getCountry());
 
-        response.add(linkTo(methodOn(OrderController.class)
-                .getOrderById(updatedOrder.getOrderIdentifier().getOrderId())).withSelfRel());
+//        response.add(linkTo(methodOn(OrderController.class)
+//                .getOrderById(updatedOrder.getOrderIdentifier().getOrderId())).withSelfRel());
 
         return response;
     }

@@ -1,5 +1,6 @@
 package com.konate.music_application.PodcastService.BusinessLayer.Podcast;
 
+import com.konate.music_application.Exceptions.InvalidInputException;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.Podcast;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.PodcastIdentifier;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.PodcastRepository;
@@ -28,11 +29,14 @@ public class PodcastServiceImpl implements PodcastService{
     @Override
     public List<PodcastResponseModel> getAllPodcast() {
         List<Podcast> podcasts = podcastRepository.findAll();
+//        addLinks
         return responseMapper.entityListToResponseModelList(podcasts);
     }
 
     @Override
     public PodcastResponseModel getPodcastById(String podcastId) {
+        if (podcastId == null || podcastId.isBlank() )
+            throw new InvalidInputException("Sorry, cannot be null.");
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
 
         if (podcast == null)
@@ -43,6 +47,9 @@ public class PodcastServiceImpl implements PodcastService{
 
     @Override
     public List<PodcastResponseModel> getPodcastByHosname(String hostname) {
+        if (hostname == null || hostname.isBlank())
+            throw new InvalidInputException("Sorry, cannot be null.");
+
         List<Podcast> podcast = podcastRepository.findAllByHostname(hostname);
         if (podcast == null)
             throw new NotFoundException("Podcast not found with hostname: " + hostname);
@@ -52,6 +59,9 @@ public class PodcastServiceImpl implements PodcastService{
 
     @Override
     public PodcastResponseModel getPodcastByTitle(String title) {
+        if (title.isBlank() || title == null)
+            throw new InvalidInputException("Sorry, cannot be null.");
+
         Podcast podcast = podcastRepository.findAllByTitle(title);
         if (podcast == null)
             throw new NotFoundException("Podcast not found with title: " + title);
@@ -74,6 +84,9 @@ public class PodcastServiceImpl implements PodcastService{
 
     @Override
     public PodcastResponseModel updatePodcast(String podcastId, PodcastRequestModel requestModel) {
+        if (podcastId.isBlank() || podcastId == null)
+            throw new InvalidInputException("Sorry, cannot be null.");
+
         Podcast podcastExisting = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
         if(requestModel ==null)
             throw new NotFoundException("Podcast request cannot be null");
@@ -89,6 +102,9 @@ public class PodcastServiceImpl implements PodcastService{
 
     @Override
     public void deletePodcast(String podcastID) {
+        if (podcastID.isBlank() || podcastID == null)
+            throw new InvalidInputException("Sorry, cannot be null.");
+
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastID);
 
         if(podcast ==null)

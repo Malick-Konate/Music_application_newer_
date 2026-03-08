@@ -1,5 +1,6 @@
 package com.konate.music_application.UserService.BusinessLayer;
 
+import com.konate.music_application.Exceptions.InvalidInputException;
 import com.konate.music_application.UserService.DataLayer.User;
 import com.konate.music_application.UserService.DataLayer.UserIdentifier;
 import com.konate.music_application.UserService.DataLayer.UserRepository;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseModel registerUser(UserRequestModel userRequestModel) {
+        if (userRequestModel == null)
+            throw new InvalidInputException("cannot be null: " + userRequestModel);
+
         User existingUser = userRepository.findByUsername(userRequestModel.getUsername());
         if (existingUser != null) {
             throw new UserFound("User already exists: " + userRequestModel.getUsername());
@@ -44,6 +48,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(String username) {
+        if (username.isBlank() || username == null)
+            throw new InvalidInputException("cannot be null: " + username);
+
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
@@ -54,6 +61,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseModel updateUser(String username, UserRequestModel userRequestModel) {
+        if (username.isBlank() || username == null)
+            throw new InvalidInputException("cannot be null: " + username);
+
         User existingUser = userRepository.findByUsername(username);
         // Check if the user exists
         if (existingUser == null)
@@ -83,6 +93,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseModel getUserByUsername(String username) {
+        if (username.isBlank() || username == null)
+            throw new InvalidInputException("cannot be null: " + username);
+
         User user = userRepository.findByUsername(username);
         // Check if the user exists
         if (user == null)
@@ -122,6 +135,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseModel getUserById(String id) {
+        if (id == null)
+            throw new InvalidInputException("cannot be null: " + id);
+
         User user = userRepository.findAllByUserIdentifier_UserId(id);
         if (user == null)
             throw new NotFoundException("User not found: " + id);

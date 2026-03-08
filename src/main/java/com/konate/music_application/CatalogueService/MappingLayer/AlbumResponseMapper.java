@@ -32,12 +32,13 @@ public interface AlbumResponseMapper {
     List<AlbumResponseModel> entityListToResponseModelList(List<Album> albumList);
 
     @AfterMapping
-    default void addLinks(AlbumResponseModel albumResponseModel, @MappingTarget Album album) {
+    default void addLinks(@MappingTarget AlbumResponseModel albumResponseModel,  Album album) {
         Link selfLink = linkTo(methodOn(AlbumController.class)
                 .getAlbumById(album.getAlbumIdentifier()
                         .getAlbumId())).withSelfRel();
 
-        albumResponseModel.add(selfLink);
+        Link deleteLink = linkTo(methodOn(AlbumController.class).deleteAlbum(albumResponseModel.getAlbumId())).withRel("delete");
+        albumResponseModel.add(selfLink, deleteLink);
     }
 
 }

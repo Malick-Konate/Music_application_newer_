@@ -27,12 +27,16 @@ public interface OrderResponseMapper {
     List<OrderResponseModel> entityListToRespondModel (List<Order> orders);
 
     @AfterMapping
-    default void selfLinks (OrderResponseModel responseModel, @MappingTarget Order order){
+    default void selfLinks (@MappingTarget OrderResponseModel responseModel, Order order){
         Link selfLink = linkTo(methodOn(OrderController.class)
                 .getOrderById(order.getOrderIdentifier()
                         .getOrderId())).withSelfRel();
+        Link allLinks = linkTo(methodOn(OrderController.class).getAllOrders()).withRel("all orders");
 
-        responseModel.add(selfLink);
+        Link deleteLink = linkTo(methodOn(OrderController.class)
+                .deleteOrder(order.getOrderIdentifier().getOrderId())).withRel("delete");
+        responseModel.add(selfLink, allLinks, deleteLink);
+
     }
 
 }

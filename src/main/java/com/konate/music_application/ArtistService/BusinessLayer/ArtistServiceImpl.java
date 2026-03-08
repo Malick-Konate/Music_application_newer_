@@ -1,5 +1,6 @@
 package com.konate.music_application.ArtistService.BusinessLayer;
 
+import com.konate.music_application.Exceptions.ArtistFound;
 import com.konate.music_application.Exceptions.NotFoundException;
 import com.konate.music_application.ArtistService.MappingLayer.ArtistRequestMapper;
 import com.konate.music_application.ArtistService.MappingLayer.ArtistResponseMapper;
@@ -42,6 +43,11 @@ public class ArtistServiceImpl implements ArtistService {
     public ArtistResponseModel createArtist(ArtistRequestModel artist) {
         if (artist == null) {
             throw new IllegalArgumentException("Artist cannot be null");
+        }
+        Artist compare = artistRepository.findAllByLastName(artist.getLastName());
+        if (compare != null) {
+            throw  new ArtistFound("Last name there is an artist with the same last name: "
+                    + compare.getFirstName() + " " + compare.getLastName());
         }
 //        List<SocialMediaLink> socialMediaLinks = artist.getSocialMediaLinks();
 //        if (socialMediaLinks != null && !socialMediaLinks.isEmpty()) {

@@ -116,8 +116,8 @@ public class AdCampaignServiceImpl implements AdCampaignService {
 
         enrichResponseModel(response, newAd);
 
-        response.add(linkTo(methodOn(AdCampaignController.class)
-                .getAdCampaign(savedCampaign.getAdIdentifier().getAdId())).withSelfRel());
+//        response.add(linkTo(methodOn(AdCampaignController.class)
+//                .getAdCampaign(savedCampaign.getAdIdentifier().getAdId())).withSelfRel());
         return response;
     }
 
@@ -178,8 +178,8 @@ public class AdCampaignServiceImpl implements AdCampaignService {
 
         enrichResponseModel(response, campaign);
 
-        response.add(linkTo(methodOn(AdCampaignController.class)
-                .getAdCampaign(updated.getAdIdentifier().getAdId())).withSelfRel());
+//        response.add(linkTo(methodOn(AdCampaignController.class)
+//                .getAdCampaign(updated.getAdIdentifier().getAdId())).withSelfRel());
         return response;
     }
 
@@ -258,8 +258,8 @@ public class AdCampaignServiceImpl implements AdCampaignService {
 
             adResponseModel.setUserName(user.getUsername());
 
-            adResponseModel.add(linkTo(methodOn(AdCampaignController.class)
-                    .getAdCampaign(adCampaign.getAdIdentifier().getAdId())).withSelfRel());
+//            adResponseModel.add(linkTo(methodOn(AdCampaignController.class)
+//                    .getAdCampaign(adCampaign.getAdIdentifier().getAdId())).withSelfRel());
             responseModels.add(adResponseModel);
 
         }

@@ -2,6 +2,7 @@ package com.konate.music_application.AdService.MappingLayer;
 import com.konate.music_application.AdService.DataLayer.AdCampaign;
 import com.konate.music_application.AdService.PresentationLayer.AdCampaignController;
 import com.konate.music_application.AdService.PresentationLayer.AdResponseModel;
+import com.konate.music_application.OrderService.PresentationLayer.OrderController;
 import org.mapstruct.*;
 import org.springframework.hateoas.Link;
 
@@ -29,10 +30,14 @@ public interface AdCampaignResponseMapper {
     AdResponseModel toAdResponseModel(AdCampaign adCampaign);
     List<AdResponseModel> toAdResponseModelList(List<AdCampaign> adCampaigns);
 
+    @AfterMapping
     public default void addLinks(@MappingTarget AdResponseModel adResponseModel, AdCampaign adCampaign) {
         Link selfLink = linkTo(methodOn(AdCampaignController.class)
                 .getAdCampaign(adCampaign.getAdIdentifier().getAdId()))
                 .withSelfRel();
-        adResponseModel.add(selfLink);
+        Link allLink = linkTo(methodOn(AdCampaignController.class).getAllAdCampaigns()).withRel("all campaign");
+
+        Link delete = linkTo(methodOn(AdCampaignController.class).deleteCampaign(adResponseModel.getAd_id())).withRel("delete campaign");
+        adResponseModel.add(selfLink, allLink, delete);
     }
 }

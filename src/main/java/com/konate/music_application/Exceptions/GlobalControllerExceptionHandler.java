@@ -29,6 +29,13 @@ public class GlobalControllerExceptionHandler {
         return createHttpErrorInfo(CONFLICT, request, ex);
     }
 
+    @ResponseStatus(CONFLICT)
+    @ExceptionHandler(ArtistFound.class)
+    public HttpErrorInfo handleArtistFound(WebRequest request, Exception ex) {
+        return createHttpErrorInfo(CONFLICT, request, ex);
+    }
+
+
     @ResponseStatus(UNPROCESSABLE_ENTITY)
     @ExceptionHandler(InvalidInputException.class)
     public HttpErrorInfo handleInvalidInputException(WebRequest request, Exception ex) {
