@@ -145,8 +145,6 @@ public class OrderServiceImpl implements OrderService {
             if (item.getProductType() == ProductType.ALBUM_PURCHASE) {
                 // Use the ID from the request to fetch the real album data
                 AlbumResponseModel album = albumService.getAlbumByTitle(item.getDisplayName());
-//                if (album == null)
-//                    throw new NotFoundException("Album not found");
                 BigDecimal albumPrice = new BigDecimal("14.99");
 
                 hydratedItem = new OrderItem(
@@ -160,8 +158,6 @@ public class OrderServiceImpl implements OrderService {
 
 
                 PodcastResponseModel podcast = podcastService.getPodcastByTitle(item.getDisplayName());
-//                if (podcast == null)
-//                    throw new NotFoundException("Podcast not found");
 
                 BigDecimal podcastPrice = determinePodcastPrice(podcast);
 
