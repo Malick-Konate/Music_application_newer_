@@ -133,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
                 throw new OrderConflictException("Conflict: You cannot purchase more than 1 quantity of a digital product (" + item.getDisplayName() + ").");
             }
             if(item.getProductType() == ProductType.ARTIST_DONATION && item.getQuantity() > 1)
-                throw new OrderConflictException("Conflict: You cannot make more than 1 artist donation at the time (" + item.getDisplayName() + ").");
+                throw new OrderConflictException("Conflict: You cannot make more than 1 artist donation at the time.");
 
             OrderItem hydratedItem = null;
 
@@ -173,7 +173,7 @@ public class OrderServiceImpl implements OrderService {
                         "Artist Support Donation",
                         artist.getFirstName() + " " + artist.getLastName(),
                         item.getPrice(), // User defined amount
-                        1
+                        item.getQuantity()
                 );
             }
 
