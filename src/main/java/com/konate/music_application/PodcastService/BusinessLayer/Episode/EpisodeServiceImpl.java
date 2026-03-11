@@ -36,7 +36,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 
     @Override
     public List<EpisodeResponseModel> getEpisodesByPodcastId(String podcastId) {
-        if (podcastId.isBlank() || podcastId == null )
+        if (podcastId == null ||podcastId.trim().isEmpty() )
             throw new InvalidInputException("Sorry, cannot be null.");
 
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
@@ -48,7 +48,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 
     @Override
     public EpisodeResponseModel createEpisode(String podcastId, EpisodeRequestModel requestModel) {
-        if (podcastId.isBlank() || podcastId == null)
+        if (podcastId == null ||podcastId.trim().isEmpty())
             throw new InvalidInputException("Sorry, cannot be null.");
 
         validateEpisodeInvariants(requestModel); // Run check
@@ -77,7 +77,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 
     @Override
     public EpisodeResponseModel getEpisodeById(String podcastId, String episodeId) {
-        if (podcastId.isBlank() || podcastId == null || episodeId.isBlank() || episodeId == null)
+        if (podcastId == null ||podcastId.trim().isEmpty() ||episodeId == null || episodeId.trim().isEmpty() )
             throw new InvalidInputException("Sorry, cannot be null.");
 
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
@@ -93,7 +93,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 
     @Override
     public EpisodeResponseModel updateEpisode(String podcastId, String episodeId, EpisodeRequestModel requestModel) {
-        if (podcastId.isBlank() || podcastId == null || episodeId.isBlank() || episodeId == null)
+        if (podcastId == null ||podcastId.trim().isEmpty() ||episodeId == null || episodeId.trim().isEmpty() )
             throw new InvalidInputException("Sorry, cannot be null.");
         validateEpisodeInvariants(requestModel); // Run check
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
@@ -116,7 +116,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 
     @Override
     public void deleteEpisode(String episodeId, String podcastId) {
-        if (podcastId.isBlank() || podcastId == null || episodeId.isBlank() || episodeId == null)
+        if (podcastId == null ||podcastId.trim().isEmpty() ||episodeId == null || episodeId.trim().isEmpty() )
             throw new InvalidInputException("Sorry, cannot be null.");
 
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);

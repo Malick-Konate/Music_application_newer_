@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(String username) {
-        if (username.isBlank() || username == null)
+        if (username == null || username.trim().isEmpty())
             throw new InvalidInputException("cannot be null: " + username);
 
         User user = userRepository.findByUsername(username);
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseModel updateUser(String username, UserRequestModel userRequestModel) {
-        if (username.isBlank() || username == null)
+        if (username == null || username.trim().isEmpty())
             throw new InvalidInputException("cannot be null: " + username);
 
         User existingUser = userRepository.findByUsername(username);
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseModel getUserByUsername(String username) {
-        if (username.isBlank() || username == null)
+        if (username == null || username.trim().isEmpty())
             throw new InvalidInputException("cannot be null: " + username);
 
         User user = userRepository.findByUsername(username);

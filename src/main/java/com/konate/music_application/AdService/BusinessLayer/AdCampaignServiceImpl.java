@@ -54,7 +54,7 @@ public class AdCampaignServiceImpl implements AdCampaignService {
         if (adRequestModel.getAdTarget() == null) {
             throw new InvalidAdTargetException("Ad must target either an artist or a podcast");
         }
-
+//depending on if is the artist or podcast, I am verifying if the targe
         if (adRequestModel.getAdTarget().getTargetType() == AdTargetType.ARTIST && adRequestModel.getAdTarget().getTargetId() == null) {
             throw new InvalidAdTargetException("Artist ad must have artistId");
         }

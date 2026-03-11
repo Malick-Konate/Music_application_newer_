@@ -60,7 +60,7 @@ public class PodcastServiceImpl implements PodcastService {
 
     @Override
     public PodcastResponseModel getPodcastByTitle(String title) {
-        if (title.trim().isEmpty() || title == null)
+        if ( title == null || title.trim().trim().isEmpty())
             throw new InvalidInputException("Sorry, cannot be null.");
 
         Podcast podcast = podcastRepository.findAllByTitle(title);
@@ -85,7 +85,7 @@ public class PodcastServiceImpl implements PodcastService {
 
     @Override
     public PodcastResponseModel updatePodcast(String podcastId, PodcastRequestModel requestModel) {
-        if (podcastId.trim().isEmpty() || podcastId == null)
+        if (podcastId == null || podcastId.trim().isEmpty() )
             throw new InvalidInputException("Sorry, cannot be null.");
 
         Podcast podcastExisting = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
