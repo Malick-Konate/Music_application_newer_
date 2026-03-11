@@ -48,9 +48,6 @@ public class AlbumServiceImpl implements AlbumService {
         albumResponseModel.setArtistFirstName(artist.getFirstName());
         albumResponseModel.setArtistLastName(artist.getLastName());
 
-        albumResponseModel.add(linkTo(methodOn(AlbumController.class)
-                .getAlbumById(album.getAlbumIdentifier().getAlbumId())).withSelfRel());
-
         return albumResponseModel;
     }
     @Override
@@ -64,8 +61,6 @@ public class AlbumServiceImpl implements AlbumService {
             albumResponseModel.setArtistFirstName(artist.getFirstName());
             albumResponseModel.setArtistLastName(artist.getLastName());
 
-            albumResponseModel.add(linkTo(methodOn(AlbumController.class)
-                    .getAlbumById(album.getAlbumIdentifier().getAlbumId())).withSelfRel());
             respondModel.add(albumResponseModel);
         }
 

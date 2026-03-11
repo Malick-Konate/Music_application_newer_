@@ -37,8 +37,9 @@ public interface AlbumResponseMapper {
                 .getAlbumById(album.getAlbumIdentifier()
                         .getAlbumId())).withSelfRel();
 
+        Link allLink = linkTo(methodOn(AlbumController.class).getAlbum()).withRel("albums");
         Link deleteLink = linkTo(methodOn(AlbumController.class).deleteAlbum(albumResponseModel.getAlbumId())).withRel("delete");
-        albumResponseModel.add(selfLink, deleteLink);
+        albumResponseModel.add(selfLink,allLink, deleteLink);
     }
 
 }
