@@ -26,17 +26,14 @@ public class AlbumServiceImpl implements AlbumService {
     private final AlbumRepository albumRepository;
     private final AlbumResponseMapper albumResponseMapper;
     private final AlbumRequestMapper albumRequestMapper;
-    private final ArtistRequestMapper artistRequestMapper;
     private final ArtistService artistService;
 
-    public AlbumServiceImpl(AlbumRepository albumRepository, AlbumResponseMapper albumResponseMapper, AlbumRequestMapper albumRequestMapper, ArtistRequestMapper artistRequestMapper, ArtistService artistService) {
+    public AlbumServiceImpl(AlbumRepository albumRepository, AlbumResponseMapper albumResponseMapper, AlbumRequestMapper albumRequestMapper, ArtistService artistService) {
         this.albumRepository = albumRepository;
         this.albumResponseMapper = albumResponseMapper;
         this.albumRequestMapper = albumRequestMapper;
-        this.artistRequestMapper = artistRequestMapper;
         this.artistService = artistService;
     }
-
 
     @Override
     public AlbumResponseModel getAlbumById(String albumId) {
@@ -56,7 +53,6 @@ public class AlbumServiceImpl implements AlbumService {
 
         return albumResponseModel;
     }
-
     @Override
     public List<AlbumResponseModel> getAllAlbums() {
         List<Album> albums = albumRepository.findAll();
@@ -76,7 +72,6 @@ public class AlbumServiceImpl implements AlbumService {
 
         return respondModel;
     }
-
     @Override
     public AlbumResponseModel createAlbum(AlbumRequestModel album) {
         ArtistResponseModel artist = artistService.getArtistById(album.getArtistId());

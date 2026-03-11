@@ -105,7 +105,6 @@ public class UserServiceImpl implements UserService {
         // Add links to the response model
         return userResponseMapper.toUserResponseModel(user);
     }
-
     @Override
     public UserResponseModel changeUserPassword(String username, UserRequestModel model) {
         User user = userRepository.findByUsername(username);
@@ -122,7 +121,6 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException("User not found: " + username);
         }
     }
-
     @Override
     public UserResponseModel getUserByEmail(String email) {
         if (email == null || email.isEmpty())
@@ -132,12 +130,10 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException("User not found: " + email);
         return userResponseMapper.toUserResponseModel(user);
     }
-
     @Override
     public UserResponseModel getUserById(String id) {
         if (id == null)
             throw new InvalidInputException("cannot be null: " + id);
-
         User user = userRepository.findAllByUserIdentifier_UserId(id);
         if (user == null)
             throw new NotFoundException("User not found: " + id);

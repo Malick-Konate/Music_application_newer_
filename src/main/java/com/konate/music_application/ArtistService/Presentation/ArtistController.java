@@ -38,6 +38,7 @@ public class ArtistController {
         ArtistResponseModel createdArtist = artistService.createArtist(artist);
         return new ResponseEntity<>(createdArtist, HttpStatus.CREATED);
     }
+
     @PutMapping("/{artistId}")
     public ResponseEntity<ArtistResponseModel> updateArtist(@PathVariable String artistId, @RequestBody ArtistRequestModel artist) {
         ArtistResponseModel updatedArtist = artistService.updateArtist(artistId, artist);

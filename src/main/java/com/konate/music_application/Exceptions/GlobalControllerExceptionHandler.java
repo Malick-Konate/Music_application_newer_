@@ -17,6 +17,7 @@ public class GlobalControllerExceptionHandler {
     public HttpErrorInfo handleNotFoundException(WebRequest request, Exception ex) {
         return createHttpErrorInfo(NOT_FOUND, request, ex);
     }
+
     @ResponseStatus(NOT_FOUND)
     @ExceptionHandler(ResourceNotFoundException.class)
     public HttpErrorInfo handleResourceNotFoundException(WebRequest request, Exception ex) {
@@ -34,7 +35,6 @@ public class GlobalControllerExceptionHandler {
     public HttpErrorInfo handleArtistFound(WebRequest request, Exception ex) {
         return createHttpErrorInfo(CONFLICT, request, ex);
     }
-
 
     @ResponseStatus(UNPROCESSABLE_ENTITY)
     @ExceptionHandler(InvalidInputException.class)
@@ -54,13 +54,11 @@ public class GlobalControllerExceptionHandler {
         return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
     }
 
-
     @ResponseStatus(UNPROCESSABLE_ENTITY)
     @ExceptionHandler(InvalidCampaignStateException.class)
     public HttpErrorInfo handleInvalidCampaignStateException(WebRequest request, Exception ex) {
         return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
     }
-
 
     @ResponseStatus(UNPROCESSABLE_ENTITY)
     @ExceptionHandler(InconsistentAlbumException.class)

@@ -38,7 +38,6 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final PodcastService podcastService;
     private final AlbumService albumService;
-
     private final ArtistService artistService;
 
     public OrderServiceImpl(OrderRepository repository, OrderRequestMapper requestMapper, OrderResponseMapper responseMapper, UserService userService, PodcastService podcastService, AlbumService albumService, ArtistService artistService) {
@@ -63,14 +62,8 @@ public class OrderServiceImpl implements OrderService {
             orderResponseModel.setFullname(user.getFullname());
             orderResponseModel.setCountry(user.getCountry());
             orderResponseModel.setEmail(user.getEmail());
-
-//            orderResponseModel.add(linkTo(methodOn(OrderController.class)
-//                    .getOrderById(order.getOrderIdentifier().getOrderId())).withSelfRel());
-//            orderResponseModel.add(linkTo(methodOn()))
             responseModels.add(orderResponseModel);
         }
-
-
         return responseModels;
     }
 
@@ -86,11 +79,8 @@ public class OrderServiceImpl implements OrderService {
         orderResponseModel.setCountry(user.getCountry());
         orderResponseModel.setEmail(user.getEmail());
 
-//        orderResponseModel.add(linkTo(methodOn(OrderController.class)
-//                .getOrderById(order.getOrderIdentifier().getOrderId())).withSelfRel());
         return orderResponseModel;
     }
-
     @Override
     public List<OrderResponseModel> getAllOrdersForUser(String userId) {
         UserResponseModel user = userService.getUserById(userId);
@@ -105,12 +95,8 @@ public class OrderServiceImpl implements OrderService {
             orderResponseModel.setCountry(user.getCountry());
             orderResponseModel.setEmail(user.getEmail());
 
-//            orderResponseModel.add(linkTo(methodOn(OrderController.class)
-//                    .getOrderById(order.getOrderIdentifier().getOrderId())).withSelfRel());
             responseModels.add(orderResponseModel);
         }
-
-
         return responseModels;
     }
 
@@ -132,8 +118,6 @@ public class OrderServiceImpl implements OrderService {
 
         // 1. Validate and Fetch User
         UserResponseModel user = userService.getUserByEmail(requestModel.getUserEmail());
-//        if (user == null)
-//            throw new NotFoundException("User not found with email: " + requestModel.getUserEmail());
 
         // 2. (Fetch details from other services)
         List<OrderItem> hydratedItems = new ArrayList<>();
@@ -279,10 +263,6 @@ public class OrderServiceImpl implements OrderService {
         response.setFullname(user.getFullname());
         response.setEmail(user.getEmail());
         response.setCountry(user.getCountry());
-
-//        response.add(linkTo(methodOn(OrderController.class)
-//                .getOrderById(updatedOrder.getOrderIdentifier().getOrderId())).withSelfRel());
-
         return response;
     }
 
