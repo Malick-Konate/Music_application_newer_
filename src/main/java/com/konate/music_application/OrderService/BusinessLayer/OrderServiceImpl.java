@@ -215,27 +215,12 @@ public class OrderServiceImpl implements OrderService {
             ));
         }
 
-//        // 3. Process Payment (Linking the calculated total)
-//        List<Payment> paymentList = new ArrayList<>();
-//        for (Payment p : requestModel.getPayments()) {
-//            paymentList.add(new Payment(
-//                    totalOrderAmount, // Use the calculated total from items
-//                    java.time.LocalDateTime.now(),
-//                    p.getMethod(),
-//                    PaymentStatus.PENDING,
-//                    "USD"
-//            ));
-//        }
-
         // 4. Assemble and Save Order
         Order orderNew = requestMapper.toOder(
                 requestModel,
                 new OrderIdentifier(),
                 new UserIdentifier(user.getUserId())
         );
-//        Order newOrder = new Order();
-//        newOrder.setOrderIdentifier(new OrderIdentifier());
-//        newOrder.setUserIdentifier(new UserIdentifier(user.getUserId()));
         orderNew.setOrderStatus(OrderStatus.PENDING);
         orderNew.setOrderItems(hydratedItems);
         orderNew.setPayments(paymentList);
