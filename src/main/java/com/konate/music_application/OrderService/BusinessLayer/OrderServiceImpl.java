@@ -7,6 +7,7 @@ import com.konate.music_application.CatalogueService.PresentationLayer.AlbumResp
 import com.konate.music_application.Exceptions.InvalidInputException;
 import com.konate.music_application.Exceptions.InvalidOrderStateException;
 import com.konate.music_application.Exceptions.NotFoundException;
+import com.konate.music_application.Exceptions.OrderConflictException;
 import com.konate.music_application.OrderService.DataLayer.*;
 import com.konate.music_application.OrderService.MappingLayer.OrderRequestMapper;
 import com.konate.music_application.OrderService.MappingLayer.OrderResponseMapper;
@@ -81,6 +82,7 @@ public class OrderServiceImpl implements OrderService {
 
         return orderResponseModel;
     }
+
     @Override
     public List<OrderResponseModel> getAllOrdersForUser(String userId) {
         UserResponseModel user = userService.getUserById(userId);
@@ -124,6 +126,15 @@ public class OrderServiceImpl implements OrderService {
         BigDecimal totalOrderAmount = BigDecimal.ZERO;
 
         for (OrderItem item : requestModel.getOrderItems()) {
+            // 1. INVARIANT: Digital Goods Quantity Conflict
+            if ((item.getProductType() == ProductType.ALBUM_PURCHASE ||
+                    item.getProductType() == ProductType.PODCAST_SUBSCRIPTION) &&
+                    item.getQuantity() > 1) {
+                throw new OrderConflictException("Conflict: You cannot purchase more than 1 quantity of a digital product (" + item.getDisplayName() + ").");
+            }
+            if(item.getProductType() == ProductType.ARTIST_DONATION && item.getQuantity() > 1)
+                throw new OrderConflictException("Conflict: You cannot make more than 1 artist donation at the time (" + item.getDisplayName() + ").");
+
             OrderItem hydratedItem = null;
 
             if (item.getProductType() == ProductType.ALBUM_PURCHASE) {
@@ -175,17 +186,46 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
-        // 3. Process Payment (Linking the calculated total)
+// 2. INVARIANT: Financial Discrepancy Conflict
+        BigDecimal totalProvidedPayment = BigDecimal.ZERO;
+        if (requestModel.getPayments() == null || requestModel.getPayments().isEmpty()) {
+            throw new OrderConflictException("Conflict: An order must have at least one valid payment method attached.");
+        }
+
+        for (Payment p : requestModel.getPayments()) {
+            // ADD THIS NULL CHECK:
+            if (p.getAmount() == null) {
+                throw new InvalidInputException("Payment amount cannot be null.");
+            }
+            totalProvidedPayment = totalProvidedPayment.add(p.getAmount());
+        }
+
+        if (totalProvidedPayment.compareTo(totalOrderAmount) != 0) {
+            throw new OrderConflictException("Conflict: Payment amount discrepancy. Expected $" + totalOrderAmount + " but received $" + totalProvidedPayment);
+        }
+        // Map the payments correctly using the client's provided amounts now that they are validated
         List<Payment> paymentList = new ArrayList<>();
         for (Payment p : requestModel.getPayments()) {
             paymentList.add(new Payment(
-                    totalOrderAmount, // Use the calculated total from items
+                    p.getAmount(), // Using the validated amount
                     java.time.LocalDateTime.now(),
                     p.getMethod(),
                     PaymentStatus.PENDING,
-                    "USD"
+                    p.getCurrency() != null ? p.getCurrency() : "USD"
             ));
         }
+
+//        // 3. Process Payment (Linking the calculated total)
+//        List<Payment> paymentList = new ArrayList<>();
+//        for (Payment p : requestModel.getPayments()) {
+//            paymentList.add(new Payment(
+//                    totalOrderAmount, // Use the calculated total from items
+//                    java.time.LocalDateTime.now(),
+//                    p.getMethod(),
+//                    PaymentStatus.PENDING,
+//                    "USD"
+//            ));
+//        }
 
         // 4. Assemble and Save Order
         Order orderNew = requestMapper.toOder(
