@@ -1,8 +1,10 @@
 package com.konate.music_application.PodcastService.BusinessLayer.Episode;
 
+import com.konate.music_application.Exceptions.InconsistentPodcastException;
 import com.konate.music_application.PodcastService.DataLayer.Episode.Episode;
 import com.konate.music_application.PodcastService.DataLayer.Episode.EpisodeIdentifier;
 import com.konate.music_application.PodcastService.DataLayer.Episode.EpisodeRepository;
+import com.konate.music_application.PodcastService.DataLayer.Episode.EpisodeStatus;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.Podcast;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.PodcastRepository;
 import com.konate.music_application.Exceptions.InvalidInputException;
@@ -49,6 +51,9 @@ public class EpisodeServiceImpl implements EpisodeService{
         if (podcastId.isBlank() || podcastId == null)
             throw new InvalidInputException("Sorry, cannot be null.");
 
+        validateEpisodeInvariants(requestModel); // Run check
+
+
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
         if(podcast == null)
             throw new NotFoundException("Podcast not found with Id: " + podcastId);
@@ -90,7 +95,7 @@ public class EpisodeServiceImpl implements EpisodeService{
     public EpisodeResponseModel updateEpisode(String podcastId, String episodeId, EpisodeRequestModel requestModel) {
         if (podcastId.isBlank() || podcastId == null || episodeId.isBlank() || episodeId == null)
             throw new InvalidInputException("Sorry, cannot be null.");
-
+        validateEpisodeInvariants(requestModel); // Run check
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
         if(podcast == null)
             throw new NotFoundException("Podcast not found with Id: " + podcastId);
@@ -125,5 +130,22 @@ public class EpisodeServiceImpl implements EpisodeService{
 
         episodeRepository.delete(episode);
 
+    }
+
+    private void validateEpisodeInvariants(EpisodeRequestModel request) {
+        // 1. Duration Invariant
+        if (request.getDuration() == null || request.getDuration().getTime() <= 0) {
+            throw new InconsistentPodcastException("Episode duration must be greater than 0.");
+        }
+
+        // 2. Status vs Date Invariant
+        if (request.getStatus() == EpisodeStatus.PUBLISHED && request.getPublishDate() == null) {
+            throw new InconsistentPodcastException("A published episode must have a publish date.");
+        }
+
+        // 3. Prevent future dates for Published status
+        if (request.getStatus() == EpisodeStatus.PUBLISHED && request.getPublishDate().after(new java.util.Date())) {
+            throw new InconsistentPodcastException("Cannot set status to PUBLISHED for a future date.");
+        }
     }
 }

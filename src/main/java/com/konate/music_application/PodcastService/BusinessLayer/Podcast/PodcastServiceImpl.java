@@ -1,5 +1,6 @@
 package com.konate.music_application.PodcastService.BusinessLayer.Podcast;
 
+import com.konate.music_application.Exceptions.InconsistentPodcastException;
 import com.konate.music_application.Exceptions.InvalidInputException;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.Podcast;
 import com.konate.music_application.PodcastService.DataLayer.Podcast.PodcastIdentifier;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PodcastServiceImpl implements PodcastService{
+public class PodcastServiceImpl implements PodcastService {
 
     private final PodcastResponseMapper responseMapper;
     private final PodcastRequestMapper requestMapper;
@@ -35,7 +36,7 @@ public class PodcastServiceImpl implements PodcastService{
 
     @Override
     public PodcastResponseModel getPodcastById(String podcastId) {
-        if (podcastId == null || podcastId.isBlank() )
+        if (podcastId == null || podcastId.trim().isEmpty())
             throw new InvalidInputException("Sorry, cannot be null.");
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
 
@@ -47,7 +48,7 @@ public class PodcastServiceImpl implements PodcastService{
 
     @Override
     public List<PodcastResponseModel> getPodcastByHosname(String hostname) {
-        if (hostname == null || hostname.isBlank())
+        if (hostname == null || hostname.trim().isEmpty())
             throw new InvalidInputException("Sorry, cannot be null.");
 
         List<Podcast> podcast = podcastRepository.findAllByHostname(hostname);
@@ -59,7 +60,7 @@ public class PodcastServiceImpl implements PodcastService{
 
     @Override
     public PodcastResponseModel getPodcastByTitle(String title) {
-        if (title.isBlank() || title == null)
+        if (title.trim().isEmpty() || title == null)
             throw new InvalidInputException("Sorry, cannot be null.");
 
         Podcast podcast = podcastRepository.findAllByTitle(title);
@@ -71,9 +72,9 @@ public class PodcastServiceImpl implements PodcastService{
 
     @Override
     public PodcastResponseModel createPodcast(PodcastRequestModel requestModel) {
-        if(requestModel == null)
+        if (requestModel == null)
             throw new IllegalArgumentException("the request cannot be empty or null");
-
+        validatePodcastInvariants(requestModel); // Run check
         Podcast podcastEntity = requestMapper.toPodcast(
                 requestModel,
                 new PodcastIdentifier()
@@ -84,12 +85,14 @@ public class PodcastServiceImpl implements PodcastService{
 
     @Override
     public PodcastResponseModel updatePodcast(String podcastId, PodcastRequestModel requestModel) {
-        if (podcastId.isBlank() || podcastId == null)
+        if (podcastId.trim().isEmpty() || podcastId == null)
             throw new InvalidInputException("Sorry, cannot be null.");
 
         Podcast podcastExisting = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastId);
-        if(requestModel ==null)
+        if (requestModel == null)
             throw new NotFoundException("Podcast request cannot be null");
+
+        validatePodcastInvariants(requestModel); // Run check
 
         podcastExisting.setDescription(requestModel.getDescription());
         podcastExisting.setTitle(requestModel.getTitle());
@@ -102,14 +105,23 @@ public class PodcastServiceImpl implements PodcastService{
 
     @Override
     public void deletePodcast(String podcastID) {
-        if (podcastID.isBlank() || podcastID == null)
+        if (podcastID == null || podcastID.trim().isEmpty())
             throw new InvalidInputException("Sorry, cannot be null.");
 
         Podcast podcast = podcastRepository.findAllByPodcastIdentifier_PodcastId(podcastID);
 
-        if(podcast ==null)
+        if (podcast == null)
             throw new NotFoundException("Podcast not found with Id: " + podcastID);
 
         podcastRepository.delete(podcast);
+    }
+
+    private void validatePodcastInvariants(PodcastRequestModel request) {
+        if (request.getTitle() == null || request.getTitle().trim().isEmpty()) {
+            throw new InconsistentPodcastException("Podcast title is required.");
+        }
+        if (request.getHostname() == null || request.getHostname().contains(" ")) {
+            throw new InconsistentPodcastException("Hostname must not be empty or contain spaces.");
+        }
     }
 }

@@ -63,7 +63,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    void whenUserDeletet_thenReturnNoContext(){
+    void whenUserDelete_thenReturnNoContext(){
         webTestClient.delete()
                 .uri(BASE_URI + "/" + VALID_USER_NAME)
                 .accept(MediaType.APPLICATION_JSON)

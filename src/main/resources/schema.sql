@@ -45,6 +45,8 @@ CREATE TABLE album
     record_label VARCHAR(255),
     album_type   Enum ('LP', 'EP', 'SINGLE') NOT NULL
 );
+DROP TABLE IF EXISTS song;
+
 CREATE TABLE song
 (
     id       INT PRIMARY KEY AUTO_INCREMENT,
@@ -67,6 +69,7 @@ CREATE TABLE users
     country  VARCHAR(100) NOT NULL,
     age      INT          NOT NULL
 );
+drop TABLE IF EXISTS episode;
 drop TABLE IF EXISTS podcast;
 
 CREATE TABLE podcast
@@ -78,7 +81,6 @@ CREATE TABLE podcast
     description   TEXT                                         NOT NULL,
     pricing_model Enum ('FREE', 'SUBSCRIPTION', 'PER_EPISODE') NOT NULL
 );
-drop TABLE IF EXISTS episode;
 CREATE TABLE episode
 (
     id           INT AUTO_INCREMENT PRIMARY KEY,
@@ -87,9 +89,7 @@ CREATE TABLE episode
     title        VARCHAR(200) NOT NULL,
     duration     TIME         NOT NULL,
     publish_date DATE         NOT NULL,
-    status       VARCHAR(30)  NOT NULL,
-    CONSTRAINT fk_episode_podcast
-        FOREIGN KEY (podcast_id) REFERENCES podcast (podcast_id)
+    status       VARCHAR(30)  NOT NULL
 );
 
 
@@ -114,8 +114,7 @@ CREATE TABLE order_items
     display_name VARCHAR(255),
     price        DECIMAL(19, 2),
     quantity     INT,
-    artist_name  VARCHAR(255),
-    CONSTRAINT fk_items_order FOREIGN KEY (order_id) REFERENCES `orders` (order_id) ON DELETE CASCADE
+    artist_name  VARCHAR(255)
 );
 
 CREATE TABLE payment
@@ -126,9 +125,7 @@ CREATE TABLE payment
     paid_at        DATETIME,
     method         ENUM ('CREDIT_CARD', 'PAYPAL', 'STRIPE'),
     payment_status ENUM ('PENDING', 'COMPLETED', 'FAILED', 'REFUNDED'),
-    currency       VARCHAR(10),
-    CONSTRAINT fk_payment_order FOREIGN KEY (order_id) REFERENCES `orders` (order_id) ON DELETE CASCADE
-);
+    currency       VARCHAR(10));
 
 DROP TABLE IF EXISTS targeting_rules;
 DROP TABLE IF EXISTS ad_creatives;
@@ -157,11 +154,8 @@ CREATE TABLE ad_creatives
 (
     ad_id         VARCHAR(255) NOT NULL,
     media_url     VARCHAR(500),
-    creative_type ENUM ('AUDIO_CLIP', 'BANNER_IMAGE', 'VIDEO_SPOT'),
+    creative_type ENUM ('AUDIO_CLIP', 'BANNER_IMAGE', 'VIDEO_SPOT')
 
-    CONSTRAINT fk_creative_ad
-        FOREIGN KEY (ad_id) REFERENCES ad_campaigns (ad_id)
-            ON DELETE CASCADE
 );
 
 CREATE TABLE targeting_rules
@@ -186,9 +180,6 @@ CREATE TABLE targeting_rules
         'LATAM'
         ),
 
-    min_age       INT,
+    min_age       INT
 
-    CONSTRAINT fk_targeting_ad
-        FOREIGN KEY (ad_id) REFERENCES ad_campaigns (ad_id)
-            ON DELETE CASCADE
 );

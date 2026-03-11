@@ -5,10 +5,8 @@ import com.konate.music_application.ArtistService.BusinessLayer.ArtistService;
 import com.konate.music_application.ArtistService.MappingLayer.ArtistRequestMapper;
 import com.konate.music_application.ArtistService.Presentation.ArtistResponseModel;
 import com.konate.music_application.ArtistService.dataLayer.ArtistIdentifier;
-import com.konate.music_application.CatalogueService.DataLayer.Album;
-import com.konate.music_application.CatalogueService.DataLayer.AlbumIdentifier;
-import com.konate.music_application.CatalogueService.DataLayer.AlbumRepository;
-import com.konate.music_application.CatalogueService.DataLayer.Song;
+import com.konate.music_application.CatalogueService.DataLayer.*;
+import com.konate.music_application.Exceptions.InconsistentAlbumException;
 import com.konate.music_application.Exceptions.NotFoundException;
 import com.konate.music_application.CatalogueService.MappingLayer.AlbumRequestMapper;
 import com.konate.music_application.CatalogueService.MappingLayer.AlbumResponseMapper;
@@ -85,6 +83,8 @@ public class AlbumServiceImpl implements AlbumService {
         if (artist == null) {
             throw new NotFoundException("Artist not found with id: " + album.getArtistId());
         }
+        validateAlbumInvariants(album);
+
 
         List<Song> songs = album.getSong();
         if (songs == null || songs.isEmpty()) {
@@ -116,9 +116,13 @@ public class AlbumServiceImpl implements AlbumService {
         if (existingAlbum == null) {
             throw new NotFoundException("Album not found with id: " + albumId);
         }
-        if (album == null) {
-            throw new IllegalArgumentException("Album cannot be null");
+        if (artist == null) {
+            throw new IllegalArgumentException("Artist cannot be null");
         }
+        // 2. Validate Domain Invariants (Now enforced on Update too!)
+        validateAlbumInvariants(album);
+
+
         existingAlbum.setTitle(album.getTitle());
         existingAlbum.setAlbumType(album.getAlbumType());
         existingAlbum.setReleaseDate(album.getReleaseDate());
@@ -128,10 +132,7 @@ public class AlbumServiceImpl implements AlbumService {
 
         Album savedAlbum = albumRepository.save(existingAlbum);
 
-        AlbumResponseModel albumResponseModel = albumResponseMapper.toResponseModel(savedAlbum);
-        albumResponseModel.setArtistLastName(artist.getLastName());
-        albumResponseModel.setArtistFirstName(artist.getFirstName());
-        return albumResponseModel;
+        return mapToResponse(savedAlbum, artist);
     }
 
     @Override
@@ -161,4 +162,40 @@ public class AlbumServiceImpl implements AlbumService {
         return albumResponseModel;
     }
 
+
+
+
+    /**
+     * Invariant Validation
+     */
+    private void validateAlbumInvariants(AlbumRequestModel request) {
+        // Invariant: Title cannot be empty
+        if (request.getTitle() == null || request.getTitle().trim().isEmpty()) {
+            throw new InconsistentAlbumException("Album title is required.");
+        }
+
+        // Invariant: Album must have at least one song
+        if (request.getSong() == null || request.getSong().isEmpty()) {
+            throw new InconsistentAlbumException("Album must have at least one song.");
+        }
+
+        // Invariant: Logical Song Count based on Album Type
+        int songCount = request.getSong().size();
+        if (request.getAlbumType() == AlbumType.SINGLE && songCount > 3) {
+            throw new InconsistentAlbumException("A SINGLE cannot have more than 3 songs.");
+        }
+        if (request.getAlbumType() == AlbumType.EP && (songCount < 4 || songCount > 6)) {
+            throw new InconsistentAlbumException("An EP must have between 4 and 6 songs.");
+        }
+        if (request.getAlbumType() == AlbumType.LP && songCount < 7) {
+            throw new InconsistentAlbumException("An LP must have at least 7 songs.");
+        }
+    }
+
+    private AlbumResponseModel mapToResponse(Album album, ArtistResponseModel artist) {
+        AlbumResponseModel model = albumResponseMapper.toResponseModel(album);
+        model.setArtistFirstName(artist.getFirstName());
+        model.setArtistLastName(artist.getLastName());
+        return model;
+    }
 }

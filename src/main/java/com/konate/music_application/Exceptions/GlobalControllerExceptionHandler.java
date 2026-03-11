@@ -62,14 +62,17 @@ public class GlobalControllerExceptionHandler {
     }
 
 
+    @ResponseStatus(UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(InconsistentAlbumException.class)
+    public HttpErrorInfo handleInconsistentAlbumException(WebRequest request, Exception ex) {
+        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
+    }
 
-//    @ResponseStatus(UNPROCESSABLE_ENTITY)
-//    @ExceptionHandler(DuplicateVinException.class)
-//    public HttpErrorInfo handleDuplicateVinException(WebRequest request, Exception ex) {
-//        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
-//    }
-
-
+    @ResponseStatus(UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(InconsistentPodcastException.class)
+    public HttpErrorInfo handleInconsistentPodcastException(WebRequest request, Exception ex) {
+        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
+    }
 
     private HttpErrorInfo createHttpErrorInfo(HttpStatus httpStatus, WebRequest request, Exception ex) {
         final String path = request.getDescription(false);
