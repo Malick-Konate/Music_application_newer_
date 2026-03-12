@@ -10,7 +10,7 @@ import org.springframework.hateoas.RepresentationModel;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PodcastResponseModel extends RepresentationModel<AlbumResponseModel> {
+public class PodcastResponseModel extends RepresentationModel<PodcastResponseModel> {
     String podcastId;
     String title;
     String hostname;

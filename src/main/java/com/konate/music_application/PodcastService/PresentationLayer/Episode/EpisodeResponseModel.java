@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EpisodeResponseModel extends RepresentationModel<AlbumResponseModel> {
+public class EpisodeResponseModel extends RepresentationModel<EpisodeResponseModel> {
     String episodeId;
 //    String hostname;
     String episodeTitle;
