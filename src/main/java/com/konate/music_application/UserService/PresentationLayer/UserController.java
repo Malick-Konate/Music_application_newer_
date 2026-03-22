@@ -33,11 +33,18 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+
     @GetMapping("/{username}")
     public ResponseEntity<UserResponseModel> getUserByUsername(@PathVariable String username) {
         UserResponseModel user = userService.getUserByUsername(username);
         return ResponseEntity.ok(user);
     }
+    @GetMapping("/id/{username}")
+    public ResponseEntity<UserResponseModel> getUserById(@PathVariable String username) {
+        UserResponseModel user = userService.getUserById(username);
+        return ResponseEntity.ok(user);
+    }
+
 
     @PutMapping("/{username}")
     public ResponseEntity<UserResponseModel> updateUser(@PathVariable String username, @RequestBody UserRequestModel userRequestModel) {
